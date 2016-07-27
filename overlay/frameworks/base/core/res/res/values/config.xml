@@ -684,4 +684,7 @@
     <!-- The maximum duration (in milliseconds) we expect a network transition to take -->
     <integer name="config_networkTransitionTimeout">20000</integer>
 
+    <!-- If this is true, device supports Sustained Performance Mode. -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
 </resources>
