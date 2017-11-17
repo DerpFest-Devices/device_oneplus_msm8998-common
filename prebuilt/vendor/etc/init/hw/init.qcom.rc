@@ -62,6 +62,8 @@ on init
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
 
+    write /sys/class/graphics/fb0/idle_time 100
+
     # Vibrator
     chown system system /sys/class/timed_output/vibrator/vtg_default
     chown system system /sys/class/timed_output/vibrator/vtg_level
