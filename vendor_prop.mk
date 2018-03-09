@@ -139,7 +139,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.mobicat=2 \
     persist.camera.stats.debugexif=3080192 \
     persist.ts.rtmakeup=false \
-    persist.vendor.camera.tintless.skip=1
+    persist.vendor.camera.tintless.skip=1 \
+	vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.oneplus.camera,com.google.android.GoogleCamera
 
 # Codec2 switch
 PRODUCT_PROPERTY_OVERRIDES += \
