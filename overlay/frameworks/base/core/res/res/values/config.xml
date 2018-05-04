@@ -639,4 +639,6 @@
 
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">true</bool>
+
+    <bool name="config_proxiSensorWakupCheck">true</bool>
 </resources>
