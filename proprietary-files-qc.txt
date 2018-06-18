@@ -882,7 +882,6 @@ vendor/lib64/libvpplibrary.so|f278c1865ef6c4ce5f7d8681d7e60f0d2ee02f1f
 vendor/lib64/vendor.qti.hardware.vpp@1.1.so
 
 # Perf
-vendor/bin/energy-awareness
 vendor/bin/msm_irqbalance
 
 # Peripheral manager
