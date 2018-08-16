@@ -20,6 +20,10 @@ on init
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
     chmod 0660 /dev/cpuset/camera-daemon/tasks
 
+    # Bump up RNG so that we have tons of bytes later on
+    write /proc/sys/kernel/random/read_wakeup_threshold 256
+    write /proc/sys/kernel/random/write_wakeup_threshold 2048
+
 # For cpusets initialize for Silver Only first and then Silver + Gold
 # Silver Only configuration cannot work with 0-7
 on boot
@@ -73,17 +77,19 @@ on late-fs
 
 on property:sys.boot_completed=1
     # Disable boot time fs tuning
-    write /sys/block/sda/queue/read_ahead_kb 128
-    write /sys/block/sda/queue/nr_requests 128
+    write /sys/block/sda/queue/read_ahead_kb 1536
+    write /sys/block/sda/queue/nr_requests 192
     write /sys/block/sda/queue/iostats 1
-    write /sys/block/sdf/queue/read_ahead_kb 128
-    write /sys/block/sdf/queue/nr_requests 128
+    write /sys/block/sdf/queue/read_ahead_kb 1536
+    write /sys/block/sdf/queue/nr_requests 192
     write /sys/block/sdf/queue/iostats 1
-    write /sys/block/sde/queue/read_ahead_kb 128
-    write /sys/block/sde/queue/nr_requests 128
+    write /sys/block/sde/queue/read_ahead_kb 1536
+    write /sys/block/sde/queue/nr_requests 192
     write /sys/block/sde/queue/iostats 1
+    write /sys/block/sda/queue/iosched/fifo_expire_sync 140
+    write /sys/block/sde/queue/iosched/fifo_expire_sync 140
 
-    # Enable UFS clk scaling
+    # Enable UFS powersaving
     write /sys/devices/soc/1da4000.ufshc/clkscale_enable 1
     write /sys/devices/soc/1da4000.ufshc/clkgate_enable 1
     write /sys/devices/soc/1da4000.ufshc/hibern8_on_idle_enable 1
@@ -124,6 +130,12 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 79000
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/ignore_hispeed_on_notif 1
+
+    # RNG
+    write /proc/sys/kernel/random/read_wakeup_threshold 192
+    write /proc/sys/kernel/random/write_wakeup_threshold 768
+
+    write /proc/sys/vm/dirty_writeback_centisecs 550
 
     # Core Control
     write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 2
@@ -191,6 +203,11 @@ on property:sys.boot_completed=1
 
     # Disable sched boost
     write /proc/sys/kernel/sched_boost 0
+
+    # Enable Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/minfree "18432,23552,27648,51256,150528,200704"
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 162500
 
     # Set up big.LITTLE scheduler configuration
     write /proc/sys/kernel/sched_migration_fixup 1
