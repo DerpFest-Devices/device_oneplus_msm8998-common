@@ -74,6 +74,9 @@ vendor/firmware/ipa_fws.b04
 vendor/firmware/ipa_fws.elf
 vendor/firmware/ipa_fws.mdt
 
+# IRQ balance
+vendor/bin/msm_irqbalance
+
 # NFC firmware
 vendor/lib/libpn553_fw.so
 
