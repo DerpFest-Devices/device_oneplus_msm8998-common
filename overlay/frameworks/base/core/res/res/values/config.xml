@@ -636,4 +636,7 @@
     <!-- Full qualified name of the class that implements
         com.android.internal.os.DeviceKeyHandler interface. -->
     <string name="config_deviceKeyHandlerClass" translatable="false">org.omnirom.device.KeyHandler</string>
+
+    <!-- Whether device ignores the RSSNR signal implementation -->
+    <bool name="config_ignoreRssnrSignalLevel">true</bool>
 </resources>
