@@ -42,3 +42,6 @@ sys.thermal.                           u:object_r:thermal_engine_prop:s0
 vendor.sys.thermal.                    u:object_r:thermal_engine_prop:s0
 
 vendor.qcom.devup                      u:object_r:vendor_device_prop:s0
+
+# Dirac
+persist.audio.dirac.                   u:object_r:dirac_prop:s0
