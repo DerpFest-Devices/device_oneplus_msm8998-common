@@ -135,7 +135,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=420 \
+    ro.sf.lcd_density=400 \
     ro.opengles.version=196610 \
     ro.sf.hwc_set_default_colormode=true \
     debug.sf.hw=1 \
