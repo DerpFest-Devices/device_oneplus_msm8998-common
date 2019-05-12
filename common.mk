@@ -25,7 +25,9 @@
 $(call inherit-product, vendor/oneplus/msm8998-common/msm8998-common-vendor.mk)
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-aosip
 
 # Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \
