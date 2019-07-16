@@ -180,6 +180,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.vidc.debug.level=1 \
     vendor.swvdec.log.level=1
 
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.omx_default_rank.sw-audio=1 \
+    debug.stagefright.omx_default_rank=0
+
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.nfc_nci=nqx.default \
