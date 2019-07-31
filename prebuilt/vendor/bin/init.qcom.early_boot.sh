@@ -68,27 +68,6 @@ else
     log -t DRM_BOOT -p w "file: '$vbfile' or perms doesn't exist"
 fi
 
-function set_density_by_fb() {
-    #put default density based on width
-    if [ -z $fb_width ]; then
-        setprop vendor.display.lcd_density 320
-    else
-        if [ $fb_width -ge 1600 ]; then
-           setprop vendor.display.lcd_density 640
-        elif [ $fb_width -ge 1440 ]; then
-           setprop vendor.display.lcd_density 560
-        elif [ $fb_width -ge 1080 ]; then
-           setprop vendor.display.lcd_density 480
-        elif [ $fb_width -ge 720 ]; then
-           setprop vendor.display.lcd_density 320 #for 720X1280 resolution
-        elif [ $fb_width -ge 480 ]; then
-            setprop vendor.display.lcd_density 240 #for 480X854 QRD resolution
-        else
-            setprop vendor.display.lcd_density 160
-        fi
-    fi
-}
-
 target=`getprop ro.board.platform`
 case "$target" in
     "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
@@ -99,7 +78,6 @@ case "$target" in
                 ln -s  /system/usr/keychars/surf_keypad_qwerty.kcm.bin /system/usr/keychars/surf_keypad.kcm.bin
                 ;;
             "Fluid")
-                setprop vendor.display.lcd_density 240
                 setprop qcom.bt.dev_power_class 2
                 ;;
             *)
@@ -110,9 +88,6 @@ case "$target" in
 
     "msm8660")
         case "$soc_hwplatform" in
-            "Fluid")
-                setprop vendor.display.lcd_density 240
-                ;;
             "Dragon")
                 setprop ro.sound.alsa "WM8903"
                 ;;
@@ -126,22 +101,8 @@ case "$target" in
                 if [ "$soc_hwver" == "196608" ]; then # version 0x30000 is 3D sku
                     setprop ro.sf.hwrotation 90
                 fi
-
-                setprop vendor.display.lcd_density 160
-                ;;
-            "MTP")
-                setprop vendor.display.lcd_density 240
                 ;;
             *)
-                case "$soc_hwid" in
-                    "109")
-                        setprop vendor.display.lcd_density 160
-                        ;;
-                    *)
-                        setprop vendor.display.lcd_density 240
-                        ;;
-                esac
-            ;;
         esac
 
         #Set up composition type based on the target
@@ -161,71 +122,41 @@ case "$target" in
     "msm8974")
         case "$soc_hwplatform" in
             "Liquid")
-                setprop vendor.display.lcd_density 160
                 # Liquid do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop ro.hw.nav_keys 0
                 ;;
-            "Dragon")
-                setprop vendor.display.lcd_density 240
-                ;;
             *)
-                setprop vendor.display.lcd_density 320
-                ;;
         esac
         ;;
 
-    "msm8226")
-        case "$soc_hwplatform" in
-            *)
-                setprop vendor.display.lcd_density 320
-                ;;
-        esac
-        ;;
-
-    "msm8610" | "apq8084" | "mpq8092")
-        case "$soc_hwplatform" in
-            *)
-                setprop vendor.display.lcd_density 240
-                ;;
-        esac
-        ;;
     "apq8084")
         case "$soc_hwplatform" in
             "Liquid")
-                setprop vendor.display.lcd_density 320
                 # Liquid do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop ro.hw.nav_keys 0
                 ;;
             "SBC")
-                setprop vendor.display.lcd_density 200
                 # SBC do not have hardware navigation keys, so enable
                 # Android sw navigation bar
                 setprop qemu.hw.mainkeys 0
                 ;;
             *)
-                setprop vendor.display.lcd_density 480
-                ;;
         esac
         ;;
     "msm8996")
         case "$soc_hwplatform" in
             "Dragon")
-                setprop vendor.display.lcd_density 240
                 setprop qemu.hw.mainkeys 0
                 ;;
             "ADP")
-                setprop vendor.display.lcd_density 160
                 setprop qemu.hw.mainkeys 0
                 ;;
             "SBC")
-                setprop vendor.display.lcd_density 240
                 setprop qemu.hw.mainkeys 0
                 ;;
             *)
-                setprop vendor.display.lcd_density 560
-                ;;
         esac
         ;;
     "msm8937" | "msm8940")
@@ -260,28 +191,13 @@ case "$target" in
                 ;;
         esac
         ;;
-    "msm8998" | "apq8098_latv")
-        case "$soc_hwplatform" in
-            *)
-		#modify by Leo Jia 560 to 420
-		#setprop ro.sf.lcd_density 560
-                setprop vendor.display.lcd_density 420
-                if [ ! -e /dev/kgsl-3d0 ]; then
-                    setprop persist.sys.force_sw_gles 1
-                    setprop vendor.display.idle_time 0
-                else
-                    setprop persist.sys.force_sw_gles 0
-                fi
-                ;;
-        esac
-        ;;
     "sdm845")
         case "$soc_hwplatform" in
             *)
                 if [ $fb_width -le 1600 ]; then
-                    setprop vendor.display.lcd_density 560
+                    setprop dalvik.vm.heapgrowthlimit 256m
                 else
-                    setprop vendor.display.lcd_density 640
+                    setprop dalvik.vm.heapgrowthlimit 512m
                 fi
                 ;;
         esac
@@ -290,9 +206,9 @@ case "$target" in
         case "$soc_hwplatform" in
             *)
                 if [ $fb_width -le 1600 ]; then
-                    setprop vendor.display.lcd_density 560
+                    setprop dalvik.vm.heapgrowthlimit 256m
                 else
-                    setprop vendor.display.lcd_density 640
+                    setprop dalvik.vm.heapgrowthlimit 512m
                 fi
                 ;;
         esac
@@ -336,24 +252,6 @@ case "$baseband" in
         setprop persist.vendor.radio.atfwd.start false;;
     *)
         setprop persist.vendor.radio.atfwd.start true;;
-esac
-
-#set default lcd density
-#Since lcd density has read only
-#property, it will not overwrite previous set
-#property if any target is setting forcefully.
-set_density_by_fb
-
-
-# set Lilliput LCD density for ADP
-product=`getprop ro.build.product`
-
-case "$product" in
-        "msmnile_au")
-         setprop vendor.display.lcd_density 160
-         ;;
-        *)
-        ;;
 esac
 
 # Setup display nodes & permissions
