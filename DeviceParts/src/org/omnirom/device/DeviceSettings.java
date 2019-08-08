@@ -56,6 +56,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_HWK_SWITCH = "hwk";
     public static final String KEY_PROXI_SWITCH = "proxi";
+    public static final String KEY_DCD_SWITCH = "dcd";
     public static final String KEY_DCI_SWITCH = "dci";
     public static final String KEY_NIGHT_SWITCH = "night";
     public static final String KEY_ADAPTIVE_SWITCH = "adaptive";
@@ -64,7 +65,7 @@ public class DeviceSettings extends PreferenceFragment implements
 
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
-    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("OnePlus5T");
+    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("dumpling");
 
     private VibratorStrengthPreference mVibratorStrength;
     private ListPreference mSliderModeTop;
@@ -75,6 +76,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private PreferenceCategory buttonCategory;
     private static Context mContext;
     private static SwitchPreference mFpsInfo;
+    private static TwoStatePreference mDCDModeSwitch;
 
 
     @Override
@@ -117,6 +119,11 @@ public class DeviceSettings extends PreferenceFragment implements
         mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
         mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
+
+        mDCDModeSwitch = (TwoStatePreference) findPreference(KEY_DCD_SWITCH);
+        mDCDModeSwitch.setEnabled(DCDModeSwitch.isSupported());
+        mDCDModeSwitch.setChecked(DCDModeSwitch.isCurrentlyEnabled(this.getContext()));
+        mDCDModeSwitch.setOnPreferenceChangeListener(new DCDModeSwitch(getContext()));
 
         mHWKSwitch = (TwoStatePreference) findPreference(KEY_HWK_SWITCH);
         buttonCategory = (PreferenceCategory) findPreference(KEY_BUTTON_CATEGORY);

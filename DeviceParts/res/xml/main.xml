@@ -91,6 +91,10 @@
             android:summary="@string/dci_mode_summary"
             android:title="@string/dci_mode_title" />-->
         <SwitchPreference
+            android:key="dcd"
+            android:summary="@string/dcd_mode_summary"
+            android:title="@string/dcd_mode_title" />
+        <SwitchPreference
             android:key="hbm"
             android:summary="@string/hbm_mode_summary"
             android:title="@string/hbm_mode_title" />

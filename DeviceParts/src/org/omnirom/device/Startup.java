@@ -27,7 +27,7 @@ import android.text.TextUtils;
 
 public class Startup extends BroadcastReceiver {
 
-    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("OnePlus5T");
+    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("dumpling");
 
     private void restore(String file, boolean enabled) {
         if (file == null) {
@@ -156,6 +156,14 @@ public class Startup extends BroadcastReceiver {
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_14);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
         restore(getGestureFile(GestureSettings.FP_GESTURE_LONG_PRESS_APP), enabled);
+
+        enabled = Settings.System.getInt(context.getContentResolver(), DCDModeSwitch.SETTINGS_KEY, 0) != 0;
+        restore(DCDModeSwitch.getFile(), enabled);
+        if (!sIsOnePlus5t) {
+            restore("/proc/flicker_free/min_brightness", "66");
+        } else {
+            restore("/proc/flicker_free/min_brightness", "302");
+        }
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_SRGB_SWITCH, false);
