@@ -69,7 +69,6 @@
 
 /firmware(/.*)?                                                 u:object_r:firmware_file:s0
 /bt_firmware(/.*)?                                              u:object_r:bt_firmware_file:s0
-/persist(/.*)?                                                  u:object_r:persist_file:s0
 
 # Wifi
 /(vendor|system/vendor)/bin/wifi-mac-generator                  u:object_r:wifi_mac_generator_exec:s0
