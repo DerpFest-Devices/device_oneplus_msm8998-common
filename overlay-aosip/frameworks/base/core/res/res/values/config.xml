@@ -23,6 +23,16 @@
     <integer name="config_proximityCheckTimeout">100</integer>
     <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
 
+    <!-- The list absolute paths of jar/apk files containing the device specific handlers,
+        delimited by File.pathSeparator, which defaults to ":" on Android  -->
+    <string name="config_deviceKeyHandlerLib" translatable="false">/system/product/priv-app/DeviceParts/DeviceParts.apk</string>
+
+    <!-- Full qualified name of the class that implements
+        com.android.internal.os.DeviceKeyHandler interface. -->
+    <string name="config_deviceKeyHandlerClass" translatable="false">org.omnirom.device.KeyHandler</string>
+
+    <bool name="config_proxiSensorWakupCheck">true</bool>
+
     <!-- All the capabilities of the LEDs on this device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
          of the following capabilities present:
