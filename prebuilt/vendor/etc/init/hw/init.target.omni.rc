@@ -36,6 +36,10 @@ on boot
     chown system system /proc/touchpanel/down_swipe_enable
     chmod 0660 /proc/touchpanel/down_swipe_enable
 
+    # Swap Hardware Keys
+    chown system system /proc/s1302/key_rep
+    chmod 0660 /proc/s1302/key_rep
+
     # Graphics
     chown system graphics /sys/class/graphics/fb0/dyn_pu
     chmod 0664 /sys/class/graphics/fb0/dyn_pu
