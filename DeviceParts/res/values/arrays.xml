@@ -17,9 +17,8 @@
     <string-array name="slider_key_action_entries" translatable="false">
         <item>@string/slider_mode_off</item>
         <item>@string/slider_mode_vibrate</item>
-        <item>@string/slider_mode_priority</item>
-	<item>@string/slider_mode_dnd</item>
 	<item>@string/slider_mode_silent</item>
+	<item>@string/slider_mode_dnd</item>
     </string-array>
 
     <string-array name="slider_key_action_values" translatable="false">
