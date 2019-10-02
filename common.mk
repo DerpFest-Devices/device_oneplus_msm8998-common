@@ -188,10 +188,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.display.config@1.0
 
-# Doze
-PRODUCT_PACKAGES += \
-    Doze
-
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
