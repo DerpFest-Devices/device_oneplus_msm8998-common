@@ -57,6 +57,17 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
 import android.widget.Toast;
+import android.net.Uri;
+import android.os.SystemProperties;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.telecom.PhoneAccountHandle;
+import android.telecom.TelecomManager;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.view.HapticFeedbackConstants;
+import com.android.internal.statusbar.IStatusBarService;
+
 
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.util.ArrayUtils;
@@ -67,6 +78,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = "KeyHandler";
     private static final boolean DEBUG = true;
+    private static final boolean DEBUG_SENSOR = false;
     protected static final int GESTURE_REQUEST = 1;
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
     private static final String KEY_CONTROL_PATH = "/proc/s1302/virtual_key";
@@ -87,9 +99,13 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int GESTURE_UP_SWIPE_SCANCODE = 66;
 
     private static final int KEY_DOUBLE_TAP = 143;
-     private static final int KEY_SLIDER_TOP = 601;
+    private static final int KEY_SLIDER_TOP = 601;
     private static final int KEY_SLIDER_CENTER = 602;
     private static final int KEY_SLIDER_BOTTOM = 603;
+    private static final int MIN_PULSE_INTERVAL_MS = 2500;
+    private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
+    private static final int HANDWAVE_MAX_DELTA_MS = 1000;
+    private static final int POCKET_MIN_DELTA_MS = 5000;
   private static final int[] sSupportedGestures = new int[]{
         GESTURE_II_SCANCODE,
         GESTURE_CIRCLE_SCANCODE,
@@ -144,6 +160,15 @@ public class KeyHandler implements DeviceKeyHandler {
     private Toast toast;
     private final Context mSysUiContext;
     private final Context mResContext;
+    private Sensor mTiltSensor;
+    private boolean mUseTiltCheck;
+    private boolean mProxyWasNear;
+    private long mProxySensorTimestamp;
+    private boolean mUseWaveCheck;
+    private Sensor mPocketSensor;
+    private boolean mUsePocketCheck;
+    private boolean mFPcheck;
+    private boolean mDispOn;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
@@ -152,6 +177,33 @@ public class KeyHandler implements DeviceKeyHandler {
             if (DEBUG) Log.d(TAG, "mProxyIsNear = " + mProxyIsNear);
             if(Utils.fileWritable(FPC_CONTROL_PATH)) {
                 Utils.writeValue(FPC_CONTROL_PATH, mProxyIsNear ? "1" : "0");
+	      }
+	     if (mUseWaveCheck || mUsePocketCheck) {
+                if (mProxyWasNear && !mProxyIsNear) {
+                    long delta = SystemClock.elapsedRealtime() - mProxySensorTimestamp;
+                    if (DEBUG_SENSOR) Log.i(TAG, "delta = " + delta);
+                    if (mUseWaveCheck && delta < HANDWAVE_MAX_DELTA_MS) {
+                        launchDozePulse();
+                    }
+                    if (mUsePocketCheck && delta > POCKET_MIN_DELTA_MS) {
+                        launchDozePulse();
+                    }
+                }
+                mProxySensorTimestamp = SystemClock.elapsedRealtime();
+                mProxyWasNear = mProxyIsNear;
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+    private SensorEventListener mTiltSensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (event.values[0] == 1) {
+                launchDozePulse();
             }
         }
 
@@ -169,11 +221,25 @@ public class KeyHandler implements DeviceKeyHandler {
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED),
                     false, this);
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DEVICE_FEATURE_SETTINGS),
+                    false, this);
             update();
+            updateDozeSettings();
         }
 
         @Override
         public void onChange(boolean selfChange) {
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DEVICE_FEATURE_SETTINGS))){
+                updateDozeSettings();
+                return;
+            }
             update();
         }
 
@@ -204,8 +270,10 @@ public class KeyHandler implements DeviceKeyHandler {
          @Override
          public void onReceive(Context context, Intent intent) {
              if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+		 mDispOn = true;
                  onDisplayOn();
              } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+		 mDispOn = false;
                  onDisplayOff();
              }
          }
@@ -213,6 +281,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     public KeyHandler(Context context) {
         mContext = context;
+	 mDispOn = true;
         mEventHandler = new EventHandler();
         mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         mGestureWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
@@ -230,6 +299,9 @@ public class KeyHandler implements DeviceKeyHandler {
         mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
         mSysUiContext = ActivityThread.currentActivityThread().getSystemUiContext();
         mResContext = getPackageContext(mContext, "org.omnirom.device");
+	mTiltSensor = getSensor(mSensorManager, "com.oneplus.sensor.pickup");
+        mPocketSensor = getSensor(mSensorManager, "com.oneplus.sensor.pocket");
+	
     }
 
     private class EventHandler extends Handler {
@@ -525,5 +597,50 @@ public class KeyHandler implements DeviceKeyHandler {
                     GestureSettings.DEVICE_GESTURE_MAPPING_9, UserHandle.USER_CURRENT);
         }
         return null;
+    }
+    private void launchDozePulse() {
+        if (DEBUG) Log.i(TAG, "Doze pulse");
+        mContext.sendBroadcastAsUser(new Intent(DOZE_INTENT),
+                new UserHandle(UserHandle.USER_CURRENT));
+    }
+
+    private boolean enableProxiSensor() {
+        return mUsePocketCheck || mUseWaveCheck || mUseProxiCheck;
+    }
+
+    private void updateDozeSettings() {
+        String value = Settings.System.getStringForUser(mContext.getContentResolver(),
+                    Settings.System.DEVICE_FEATURE_SETTINGS,
+                    UserHandle.USER_CURRENT);
+        if (DEBUG) Log.i(TAG, "Doze settings = " + value);
+        if (!TextUtils.isEmpty(value)) {
+            String[] parts = value.split(":");
+            mUseWaveCheck = Boolean.valueOf(parts[0]);
+            mUsePocketCheck = Boolean.valueOf(parts[1]);
+            mUseTiltCheck = Boolean.valueOf(parts[2]);
+        }
+    }
+
+    IStatusBarService getStatusBarService() {
+        return IStatusBarService.Stub.asInterface(ServiceManager.getService("statusbar"));
+    }
+
+    protected static Sensor getSensor(SensorManager sm, String type) {
+        for (Sensor sensor : sm.getSensorList(Sensor.TYPE_ALL)) {
+            if (type.equals(sensor.getStringType())) {
+                return sensor;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean getCustomProxiIsNear(SensorEvent event) {
+        return event.values[0] == 1;
+    }
+
+    @Override
+    public String getCustomProxiSensor() {
+        return "com.oneplus.sensor.pocket";
     }
 }
