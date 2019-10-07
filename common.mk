@@ -369,10 +369,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libjson
 
-# Ramdisk
-PRODUCT_PACKAGES += \
-    init.safailnet.rc
-
 # RCS
 PRODUCT_PACKAGES += \
     rcs_service_aidl \
