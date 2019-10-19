@@ -174,6 +174,8 @@ TARGET_USES_QTI_CAMERA_DEVICE := true
 TARGET_USES_QTI_CAMERA2CLIENT := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_USES_MEDIA_EXTENSIONS := true
+TARGET_LD_SHIM_LIBS += /vendor/lib/libmms_hal_vstab.so|/vendor/lib/libshim_camera.so
+TARGET_LD_SHIM_LIBS += /vendor/lib/libmms_warper_vstab.so|/vendor/lib/libshim_camera.so
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
