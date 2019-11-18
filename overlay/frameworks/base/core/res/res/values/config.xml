@@ -41,6 +41,7 @@
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
         <item>1</item>
+	<item>2</item>
         <item>4</item>
         <item>12</item>
         <item>20</item>
@@ -71,6 +72,7 @@
          array. The brightness values must be non-negative and non-decreasing. This must be
          overridden in platform specific overlays -->
     <array name="config_autoBrightnessDisplayValuesNits">
+	<item>1.5077</item>
         <item>3.5077</item>
         <item>6.8394</item>
         <item>15.2619</item>
@@ -94,6 +96,7 @@
 
          This array should be equal in size to config_screenBrightnessNits. -->
     <integer-array name="config_screenBrightnessBacklight">
+        <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -174,6 +177,7 @@
 
          This array should be equal in size to config_screenBrightnessBacklight -->
     <array name="config_screenBrightnessNits">
+        <item>1.0482</item>
         <item>2.0482</item>
         <item>2.543</item>
         <item>3.0253</item>
@@ -258,7 +262,7 @@
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">6</integer>
+    <integer name="config_screenBrightnessDim">3</integer>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
