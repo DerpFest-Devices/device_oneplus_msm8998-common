@@ -3509,7 +3509,7 @@ case "$target" in
 	echo 1574400 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_freq
 	echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/pl
 	echo "0:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
-	echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
+	echo 200 > /sys/module/cpu_boost/parameters/input_boost_ms
 
 	# Enable Adaptive LMK liuyaxin@framework.perf change
 	echo "18432,23040,27648,51256,150296,200640" > /sys/module/lowmemorykiller/parameters/minfree
