@@ -8,6 +8,9 @@ allow system_app sysfs_switch:file { rw_file_perms };
 
 allow system_app sysfs_graphics_omni:file { rw_file_perms };
 allow system_app sysfs_graphics_omni:dir { search };
+allow system_app sysfs_dm:file { rw_file_perms };
+allow system_app sysfs_graphics:file { rw_file_perms };
+allow system_app sysfs_graphics:dir { search };
 allow system_app sysfs_fpc_key:file { rw_file_perms };
 allow system_app sysfs_fpc_proximity:file { rw_file_perms };
 allow system_app sysfs_fpc_screen:file { rw_file_perms };
