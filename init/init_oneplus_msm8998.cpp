@@ -216,4 +216,5 @@ void vendor_load_properties() {
     init_fingerprint_properties();
     init_alarm_boot_properties();
     load_dalvikvm_properties();
+    property_override("ro.apex.updatable", "true");
 }
