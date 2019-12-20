@@ -33,6 +33,11 @@ on boot
     chmod 0666 /sys/class/graphics/fb0/DCI_P3
     chown system graphics /sys/class/graphics/fb0/night_mode
     chmod 0666 /sys/class/graphics/fb0/night_mode
+    chown system graphics /sys/class/graphics/fb0/oneplus_mode
+    chmod 0666 /sys/class/graphics/fb0/oneplus_mode
+    chown system graphics /sys/class/graphics/fb0/adaption_mode
+    chmod 0666 /sys/class/graphics/fb0/adaption_mode
+
 
     # Vibrator permissions
     chown root system /sys/devices/virtual/timed_output/vibrator/vtg_level
