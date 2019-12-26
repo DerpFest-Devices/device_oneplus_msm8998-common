@@ -88,4 +88,6 @@
 /sys/devices/virtual/graphics/fb0/SRGB                          u:object_r:sysfs_graphics_omni:s0
 /sys/devices/virtual/graphics/fb0/DCI_P3                        u:object_r:sysfs_graphics_omni:s0
 /sys/devices/virtual/graphics/fb0/night_mode                    u:object_r:sysfs_graphics_omni:s0
+/sys/devices/virtual/graphics/fb0/adaption_mode                 u:object_r:sysfs_graphics_omni:s0
+/sys/devices/virtual/graphics/fb0/oneplus_mode                  u:object_r:sysfs_graphics_omni:s0
 /sys/devices/virtual/graphics/fb0/measured_fps                  u:object_r:sysfs_graphics_omni:s0
