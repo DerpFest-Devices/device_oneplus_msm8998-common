@@ -130,6 +130,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libbt-vendor \
     libbthost_if \
+    libldacBT_dec \
     bt-mac-generator \
     audio.bluetooth.default \
     android.hardware.bluetooth.audio@2.0-impl
