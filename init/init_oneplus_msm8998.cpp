@@ -43,6 +43,7 @@
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
+#include <sys/sysinfo.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -187,9 +188,32 @@ void init_alarm_boot_properties()
     }
 }
 
+void load_dalvikvm_properties()
+{
+    struct sysinfo sys;
+
+    sysinfo(&sys);
+    if (sys.totalram < 7000ull * 1024 * 1024) {
+        // 6GB RAM
+        property_set("dalvik.vm.heapstartsize", "16m");
+        property_set("dalvik.vm.heaptargetutilization", "0.5");
+        property_set("dalvik.vm.heapmaxfree", "32m");
+    } else {
+        // 8GB RAM
+        property_set("dalvik.vm.heapstartsize", "24m");
+        property_set("dalvik.vm.heaptargetutilization", "0.46");
+        property_set("dalvik.vm.heapmaxfree", "48m");
+    }
+
+    property_set("dalvik.vm.heapgrowthlimit", "256m");
+    property_set("dalvik.vm.heapsize", "512m");
+    property_set("dalvik.vm.heapminfree", "8m");
+}
+
 void vendor_load_properties() {
     LOG(INFO) << "Loading vendor specific properties";
     init_target_properties();
     init_fingerprint_properties();
     init_alarm_boot_properties();
+    load_dalvikvm_properties();
 }
