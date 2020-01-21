@@ -18,7 +18,7 @@
 package org.omnirom.device;
 
 import static android.provider.Settings.Global.ZEN_MODE_OFF;
-import static android.provider.Settings.Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
+import static android.provider.Settings.Global.ZEN_MODE_NO_INTERRUPTIONS;
 
 import com.android.internal.util.nitrogen.NitrogenUtils;
 import android.app.ActivityManagerNative;
@@ -60,7 +60,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
-import android.widget.Toast;
 import android.net.Uri;
 import android.os.SystemProperties;
 import android.os.VibrationEffect;
@@ -70,7 +69,6 @@ import android.telecom.TelecomManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.view.HapticFeedbackConstants;
-import android.widget.Toast;
 import com.android.internal.statusbar.IStatusBarService;
 
 
@@ -203,9 +201,6 @@ public class KeyHandler implements DeviceKeyHandler {
     private boolean mFPcheck;
     private boolean mDispOn;
     private boolean isFpgesture;
-    private boolean mTorchState = false;
-    private boolean mUseSliderTorch = false;
-    private Toast toast;
     private final Context mSysUiContext;
     private final Context mResContext;
 
@@ -349,15 +344,15 @@ public class KeyHandler implements DeviceKeyHandler {
             switch(event.getScanCode()) {
                 case KEY_SLIDER_TOP:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
-                    doHandleSliderAction(0, 170);
+                    doHandleSliderAction(0);
                     return true;
                 case KEY_SLIDER_CENTER:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
-                    doHandleSliderAction(1, 260);
+                    doHandleSliderAction(1);
                     return true;
                 case KEY_SLIDER_BOTTOM:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
-                    doHandleSliderAction(2, 350);
+                    doHandleSliderAction(2);
                     return true;
             }
         }
@@ -525,41 +520,21 @@ public class KeyHandler implements DeviceKeyHandler {
         return 0;
     }
 
-    private void doHandleSliderAction(int position, int yOffset) {
+    private void doHandleSliderAction(int position) {
         int action = getSliderAction(position);
         if ( action == 0) {
             mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mTorchState = false;
-            showToast(R.string.toast_ringer, Toast.LENGTH_SHORT, yOffset);
         } else if (action == 1) {
             mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
-            mTorchState = false;
-            showToast(R.string.toast_vibrate, Toast.LENGTH_SHORT, yOffset);
         } else if (action == 2) {
             mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
+            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_SILENT);
-            mTorchState = false;
-            showToast(R.string.toast_silent, Toast.LENGTH_SHORT, yOffset);
         } else if (action == 3) {
-            mNoMan.setZenMode(ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mTorchState = false;
-            showToast(R.string.toast_dnd, Toast.LENGTH_SHORT, yOffset);
-        } else if (action == 4) {
-            mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mUseSliderTorch = true;
-            mTorchState = true;
-            showToast(R.string.toast_flash, Toast.LENGTH_SHORT, yOffset);
-        }
-
-        if (((!mProxyIsNear && mUseProxiCheck) || !mUseProxiCheck) && mUseSliderTorch && action < 4) {
-            launchSpecialActions(AppSelectListPreference.TORCH_ENTRY);
-            mUseSliderTorch = false;
-        } else if (((!mProxyIsNear && mUseProxiCheck) || !mUseProxiCheck) && mUseSliderTorch) {
-            launchSpecialActions(AppSelectListPreference.TORCH_ENTRY);
+            mNoMan.setZenMode(ZEN_MODE_NO_INTERRUPTIONS, null, TAG);
         }
     }
 
@@ -736,20 +711,6 @@ public class KeyHandler implements DeviceKeyHandler {
 
     public String getCustomProxiSensor() {
         return "com.oneplus.sensor.pocket";
-    }
-
-    void showToast(int messageId, int duration, int yOffset) {
-        final String message = mResContext.getResources().getString(messageId);
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-        @Override
-        public void run() {
-            if (toast != null) toast.cancel();
-            toast = Toast.makeText(mSysUiContext, message, duration);
-            toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, yOffset);
-            toast.show();
-            }
-        });
     }
 
     public static Context getPackageContext(Context context, String packageName) {
