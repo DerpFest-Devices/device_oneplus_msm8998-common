@@ -361,7 +361,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti
+    android.hardware.power@1.3-service.oneplus_msm8998-libperfmgr
 
 # Protobuf
 PRODUCT_PACKAGES += \
