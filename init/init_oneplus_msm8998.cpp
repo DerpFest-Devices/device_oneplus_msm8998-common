@@ -195,19 +195,19 @@ void load_dalvikvm_properties()
     sysinfo(&sys);
     if (sys.totalram < 7000ull * 1024 * 1024) {
         // 6GB RAM
-        property_set("dalvik.vm.heapstartsize", "16m");
-        property_set("dalvik.vm.heaptargetutilization", "0.5");
-        property_set("dalvik.vm.heapmaxfree", "32m");
+        property_override("dalvik.vm.heapstartsize", "16m");
+        property_override("dalvik.vm.heaptargetutilization", "0.5");
+        property_override("dalvik.vm.heapmaxfree", "32m");
     } else {
         // 8GB RAM
-        property_set("dalvik.vm.heapstartsize", "24m");
-        property_set("dalvik.vm.heaptargetutilization", "0.46");
-        property_set("dalvik.vm.heapmaxfree", "48m");
+        property_override("dalvik.vm.heapstartsize", "24m");
+        property_override("dalvik.vm.heaptargetutilization", "0.46");
+        property_override("dalvik.vm.heapmaxfree", "48m");
     }
 
-    property_set("dalvik.vm.heapgrowthlimit", "256m");
-    property_set("dalvik.vm.heapsize", "512m");
-    property_set("dalvik.vm.heapminfree", "8m");
+    property_override("dalvik.vm.heapgrowthlimit", "256m");
+    property_override("dalvik.vm.heapsize", "512m");
+    property_override("dalvik.vm.heapminfree", "8m");
 }
 
 void vendor_load_properties() {
