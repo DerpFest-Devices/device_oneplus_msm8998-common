@@ -290,7 +290,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.bar_fake_gcell=1 \
     persist.vendor.radio.arfcn_test_mode=3 \
-    persist.backup.ntpServer=0.pool.ntp.org
+    persist.backup.ntpServer=0.pool.ntp.org \
+    persist.sys.fflag.override.settings_network_and_internet_v2=true
 
 # RmNet Data
 PRODUCT_PROPERTY_OVERRIDES += \
