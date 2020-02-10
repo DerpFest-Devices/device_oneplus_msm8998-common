@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -70,6 +70,8 @@ static void translateDiagGnssMeasUsageInfo(clientDiagGnssMeasUsageInfo& out,
         const GnssMeasUsageInfo& in);
 void populateClientDiagLocation(clientDiagGnssLocationStructType* diagGnssLocPtr,
         const GnssLocation& gnssLocation);
+void populateClientDiagMeasurements(clientDiagGnssMeasurementsStructType* diagGnssMeasPtr,
+        const GnssMeasurements& gnssMeasurements);
 static void translateDiagGnssSv(clientDiagGnssSv& out, const GnssSv& in);
 void populateClientDiagGnssSv(clientDiagGnssSvStructType* diagGnssSvPtr,
         std::vector<GnssSv>& gnssSvs);
@@ -86,6 +88,17 @@ enum ReportCbEnumType {
      *  etc and also for location of other engines running in the
      *  system */
     REPORT_CB_ENGINE_INFO = 2,
+};
+
+struct ClientCallbacks {
+    CapabilitiesCb capabilitycb;
+    ResponseCb responsecb;
+    CollectiveResponseCb collectivecb;
+    LocationCb locationcb;
+    BatchingCb batchingcb;
+    GeofenceBreachCb gfbreachcb;
+    GnssReportCbs gnssreportcbs;
+    EngineReportCbs engreportcbs;
 };
 
 typedef std::function<void(
@@ -226,6 +239,7 @@ private:
     GnssSvCb                mGnssSvCb;
     GnssNmeaCb              mGnssNmeaCb;
     GnssDataCb              mGnssDataCb;
+    GnssMeasurementsCb      mGnssMeasurementsCb;
 
     GnssEnergyConsumedCb    mGnssEnergyConsumedInfoCb;
     ResponseCb              mGnssEnergyConsumedResponseCb;
