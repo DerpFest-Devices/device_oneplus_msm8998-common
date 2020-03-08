@@ -45,6 +45,9 @@
   <string name="slider_mode_title_bottom">Posizione inferiore</string>
   <string name="dci_mode_title">Ampia gamma di colori</string>
   <string name="Night_mode_title">Modalità notte</string>
+  <string name="oneplus_mode_title">OnePlus mode</string>
+
+
   <string name="choose_app">Scegli app</string>
   <string name="category_double_swipe_gesture">Gesto doppio swipe</string>
   <string name="offscreen_gesture_title">Gesto a schermo spento</string>
@@ -80,6 +83,7 @@
   <string name="category_fp_long_press_gesture">Pressione prolungata dell\'impronta digitale</string>
   <string name="fp_swipe_down_switch_summary_head">Azione predefinita per le notifiche quando si scorre verso il basso sul sensore di impronte digitali</string>
   <string name="fp_swipe_down_switch_title_head">Scorrimento verso il basso dell\'impronta digitale</string>
+
   <string name="doze_category_title">Display Ambiente</string>
   <string name="doze_category_summary">Riattiva lo schermo quando ricevi le notifiche</string>
   <string name="wave_check_summary">Mostra le notifiche al passaggio della mano</string>
@@ -89,10 +93,21 @@
   <string name="pocket_check_summary">Mostra le notifiche quando estrai lo smartphone dalla tasca</string>
   <string name="pocket_check_title">Tasca</string>
   <string name="ambient_display_enable">Il display ambiente deve essere abilitato dalle impostazioni del display</string>
+
   <string name="panel_category_title">Modalità schermo</string>
   <string name="panel_category_summary">Modalità per la correzione dei colori</string>
   <string name="off_mode_title">Disattivato</string>
   <string name="tile_panel_mode">Modalità schermo</string>
   <string name="tile_hbm_mode">Modalità alta luminosità</string>
   <string name="wake_entry">Sveglia</string>
+
+  <string name="toast_ringer">Suoneria</string>
+  <string name="toast_vibrate">Vibrazione</string>
+  <string name="toast_dnd">Non disturbare</string>
+  <string name="toast_silent">Silenzioso</string>
+  <string name="toast_flash">Torcia</string>
+
+  <string name="fps_info_title">FPS Overlay</string>
+  <string name="fps_info_summary">Show overlay with with current frames per second</string>
 </resources>
+
