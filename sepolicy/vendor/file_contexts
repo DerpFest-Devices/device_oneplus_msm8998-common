@@ -13,9 +13,15 @@
 /sys/devices/bt_wcn3990/extldo                                  u:object_r:sysfs_bluetooth_writable:s0
 /(vendor|system/vendor)/bin/bt-mac-generator                    u:object_r:bt_mac_generator_exec:s0
 
+# Camera
+/(product|system/product)/(lib|lib64)/vendor\.qti\.hardware\.camera\.device@1\.0\.so   u:object_r:same_process_hal_file:s0
+
 # Dash
 /dev/dash                                                       u:object_r:dash_device:s0
 /vendor/xbin/dashd                                              u:object_r:dashd_exec:s0
+
+# Display
+/(product|system/product)/(lib|lib64)/vendor\.display\.config@1\.[0-9]\.so   u:object_r:same_process_hal_file:s0
 
 # DPM
 /system/bin/dpmd                                                u:object_r:dpmd_exec:s0
@@ -27,8 +33,10 @@
 # Fingerprint
 /dev/fpc1020                                                    u:object_r:fingerprint_device:s0
 /dev/goodix_fp                                                  u:object_r:fingerprint_device:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-custom    u:object_r:hal_fingerprint_default_exec:s0
-/data/system/users/0/fpdata(/.*)?                               u:object_r:fingerprintd_data_file:s0
+/sys/devices/soc/soc:fingerprint_detect(/.*)?                   u:object_r:sysfs_fpc:s0
+/sys/devices/soc/soc:fpc_fpc1020(/.*)?                          u:object_r:sysfs_fpc:s0
+/sys/devices/soc/soc:goodix_fp(/.*)?                            u:object_r:sysfs_fpc:s0
+/sys/module/fpc1020_tee/parameters(/.*)?                        u:object_r:sysfs_fpc:s0
 
 # Lights
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service.oneplus_msm8998    u:object_r:hal_light_default_exec:s0
@@ -37,9 +45,6 @@
 /vendor/usr/keylayout/fpc1020.kl                                u:object_r:vendor_keylayout_file:s0
 /vendor/usr/keylayout/synaptics.kl                              u:object_r:vendor_keylayout_file:s0
 /vendor/usr/keylayout/synaptics_s3320.kl                        u:object_r:vendor_keylayout_file:s0
-
-# Netmgrd
-/system/bin/ip                                                  u:object_r:netmgrd_exec:s0
 
 # Param
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.param@1\.0-service    u:object_r:hal_param_default_exec:s0
@@ -60,17 +65,9 @@
 /sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-02/800f000.qcom,spmi:qcom,pmi8998@2:gpio-leds/leds(/.*)?    u:object_r:sysfs_leds:s0
 /sys/devices/soc/800f000.qcom,spmi/spmi-0/spmi0-03/800f000.qcom,spmi:qcom,pmi8998@3:qcom,leds@d000/leds(/.*)?    u:object_r:sysfs_leds:s0
 
-/sys/devices/soc/soc:fingerprint_detect/sensor_version          u:object_r:sysfs_fpc:s0
-/sys/devices/soc/soc:fpc_fpc1020/irq                            u:object_r:sysfs_fpc_irq:s0
-/sys/devices/soc/soc:fpc_fpc1020/report_home                    u:object_r:sysfs_fpc_key:s0
-/sys/devices/soc/soc:fpc_fpc1020/report_key                     u:object_r:sysfs_fpc_key:s0
-/sys/devices/soc/soc:fpc_fpc1020/screen_state                   u:object_r:sysfs_fpc_screen:s0
-/sys/devices/soc/soc:fpc_fpc1020/proximity_state                u:object_r:sysfs_fpc_proximity:s0
-/sys/devices/soc/soc:goodix_fp/proximity_state                  u:object_r:sysfs_fpc_proximity:s0
-
 /sys/devices/soc/8c0000.qcom,msm-cam/video4linux(/.*)?          u:object_r:sysfs_graphics:s0
 /sys/devices/virtual/graphics/fb0(/.*)?                         u:object_r:sysfs_graphics:s0
-/sys/module/fpc1020_tee/parameters/ignor_home_for_ESD           u:object_r:sysfs_fpc_key:s0
+/sys/kernel/boot_wlan(/.*)?                                     u:object_r:sysfs_wifi:s0
 
 /sys/project_info(/.*)?                                         u:object_r:sysfs_project_info:s0
 
@@ -84,6 +81,8 @@
 
 # Omni
 /sys/devices/virtual/timed_output/vibrator/vtg_level            u:object_r:sysfs_vibrator:s0
+/sys/devices/soc/soc:fpc_fpc1020/proximity_state                u:object_r:sysfs_fpc_proximity:s0
+/sys/devices/soc/soc:goodix_fp/proximity_state                  u:object_r:sysfs_fpc_proximity:s0
 /sys/devices/virtual/graphics/fb0/hbm                           u:object_r:sysfs_graphics_omni:s0
 /sys/devices/virtual/graphics/fb0/SRGB                          u:object_r:sysfs_graphics_omni:s0
 /sys/devices/virtual/graphics/fb0/DCI_P3                        u:object_r:sysfs_graphics_omni:s0

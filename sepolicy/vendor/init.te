@@ -1,13 +1,11 @@
 allow init proc_alarm_boot:file { r_file_perms };
 
+allow init sysfs_leds:lnk_file { r_file_perms };
+allow init sysfs_fpc:file { r_file_perms };
 allow init sysfs_data:file { r_file_perms };
 allow init sysfs:file { open read };
-allow init sysfs_fpc:file { r_file_perms };
-allow init sysfs_leds:lnk_file { read };
 allow init sysfs_project_info:file { r_file_perms };
 
-dontaudit init bt_firmware_file:filesystem { getattr };
-dontaudit init firmware_file:filesystem { getattr };
 
 allow init sysfs_fpc_proximity:file setattr;
 allow init sysfs_graphics_omni:file setattr;

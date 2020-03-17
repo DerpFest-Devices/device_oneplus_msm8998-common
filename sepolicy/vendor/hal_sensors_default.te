@@ -1,2 +1,1 @@
 set_prop(hal_sensors_default, diag_prop)
-allow hal_sensors_default adsprpc_prop:file { getattr open read };
