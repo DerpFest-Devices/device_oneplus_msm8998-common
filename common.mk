@@ -246,7 +246,7 @@ PRODUCT_PACKAGES += \
     org.ifaa.android.manager
 
 PRODUCT_BOOT_JARS += \
-    org.ifaa.android.manager
+    org.ifaa.android.manager \
 
 # IPv6
 PRODUCT_PACKAGES += \
