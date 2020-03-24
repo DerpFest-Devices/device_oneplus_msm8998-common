@@ -760,7 +760,7 @@ vendor/lib64/libsdedrm.so
 vendor/lib/libhdr_tm.so
 vendor/lib64/libhdr_tm.so
 
-# Graphics (SDM) - from LA.UM.8.2.r1-04300-sdm660.0 
+# Graphics (SDM) - from LA.UM.8.2.r1-04300-sdm660.0
 vendor/bin/hw/vendor.display.color@1.0-service
 vendor/bin/hw/vendor.qti.hardware.qdutils_disp@1.0-service-qti
 vendor/etc/init/vendor.display.color@1.0-service.rc
