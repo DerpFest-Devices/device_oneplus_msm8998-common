@@ -4,3 +4,4 @@ binder_call(platform_app, hal_ifaa_default)
 allow platform_app sysfs_battery_supply:dir search;
 
 allow platform_app sysfs_battery_supply:file read;
+allow platform_app sysfs_battery_supply:file open;
