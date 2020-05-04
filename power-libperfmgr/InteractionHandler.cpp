@@ -124,7 +124,7 @@ void InteractionHandler::Acquire(int32_t duration) {
 
     std::lock_guard<std::mutex> lk(mLock);
     if (mState == INTERACTION_STATE_UNINITIALIZED) {
-        ALOGW("%s: called while uninitialized", __func__);
+        ALOGV("%s: called while uninitialized", __func__);
         return;
     }
 
