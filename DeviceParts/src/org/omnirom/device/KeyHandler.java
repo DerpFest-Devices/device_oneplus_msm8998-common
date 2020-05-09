@@ -601,6 +601,9 @@ public class KeyHandler implements DeviceKeyHandler {
         } else if (value.equals(AppSelectListPreference.VOLUME_DOWN_ENTRY)) {
             mAudioManager.adjustSuggestedStreamVolume(AudioManager.ADJUST_LOWER,AudioManager.USE_DEFAULT_STREAM_TYPE,AudioManager.FLAG_SHOW_UI);
             return true;
+        } else if (value.equals(AppSelectListPreference.DOZE_PULSE_ENTRY)) {
+            launchDozePulse();
+            return true;
         } else if (value.equals(AppSelectListPreference.BROWSE_SCROLL_DOWN_ENTRY)) {
             aosipUtils.sendKeycode(KeyEvent.KEYCODE_PAGE_DOWN);
             return true;
