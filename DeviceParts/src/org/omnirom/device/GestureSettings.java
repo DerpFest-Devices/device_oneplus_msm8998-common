@@ -109,7 +109,7 @@ public class GestureSettings extends PreferenceFragment implements
     private AppSelectListPreference mFPLongPressApp;
     private PreferenceCategory fpGestures;
     private boolean mFpDownSwipe;
-    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("OnePlus5T");
+    private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("dumpling");
     private List<AppSelectListPreference.PackageItem> mInstalledPackages = new LinkedList<AppSelectListPreference.PackageItem>();
     private PackageManager mPm;
 
