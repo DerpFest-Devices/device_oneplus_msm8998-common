@@ -400,22 +400,22 @@ public class GestureSettings extends PreferenceFragment implements
 
         @Override
         protected void onPostExecute(Void feed) {
-            mDoubleSwipeApp.setPackageList(mInstalledPackages);
-            mCircleApp.setPackageList(mInstalledPackages);
-            mDownArrowApp.setPackageList(mInstalledPackages);
-            mUpArrowApp.setPackageList(mInstalledPackages);
-            mLeftArrowApp.setPackageList(mInstalledPackages);
-            mRightArrowApp.setPackageList(mInstalledPackages);
-            mDownSwipeApp.setPackageList(mInstalledPackages);
-            mUpSwipeApp.setPackageList(mInstalledPackages);
-            mLeftSwipeApp.setPackageList(mInstalledPackages);
-            mRightSwipeApp.setPackageList(mInstalledPackages);
+            mDoubleSwipeApp.setPackageList(mInstalledPackages, false);
+            mCircleApp.setPackageList(mInstalledPackages, false);
+            mDownArrowApp.setPackageList(mInstalledPackages, false);
+            mUpArrowApp.setPackageList(mInstalledPackages, false);
+            mLeftArrowApp.setPackageList(mInstalledPackages, false);
+            mRightArrowApp.setPackageList(mInstalledPackages, false);
+            mDownSwipeApp.setPackageList(mInstalledPackages, false);
+            mUpSwipeApp.setPackageList(mInstalledPackages, false);
+            mLeftSwipeApp.setPackageList(mInstalledPackages, false);
+            mRightSwipeApp.setPackageList(mInstalledPackages, false);
             if (sIsOnePlus5t) {
-                mFPDownSwipeApp.setPackageList(mInstalledPackages);
-                mFPUpSwipeApp.setPackageList(mInstalledPackages);
-                mFPRightSwipeApp.setPackageList(mInstalledPackages);
-                mFPLeftSwipeApp.setPackageList(mInstalledPackages);
-                mFPLongPressApp.setPackageList(mInstalledPackages);
+                mFPDownSwipeApp.setPackageList(mInstalledPackages, true);
+                mFPUpSwipeApp.setPackageList(mInstalledPackages, true);
+                mFPRightSwipeApp.setPackageList(mInstalledPackages, true);
+                mFPLeftSwipeApp.setPackageList(mInstalledPackages, true);
+                mFPLongPressApp.setPackageList(mInstalledPackages, true);
             }
         }
     }
