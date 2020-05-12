@@ -343,15 +343,15 @@ public class KeyHandler implements DeviceKeyHandler {
             switch(event.getScanCode()) {
                 case KEY_SLIDER_TOP:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
-                    doHandleSliderAction(0, 170);
+                    doHandleSliderAction(0, 0);
                     return true;
                 case KEY_SLIDER_CENTER:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
-                    doHandleSliderAction(1, 260);
+                    doHandleSliderAction(1, 90);
                     return true;
                 case KEY_SLIDER_BOTTOM:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
-                    doHandleSliderAction(2, 350);
+                    doHandleSliderAction(2, 180);
                     return true;
             }
         }
