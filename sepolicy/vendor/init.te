@@ -10,3 +10,4 @@ allow init sysfs_fpc_proximity:file setattr;
 allow init sysfs_graphics_omni:file setattr;
 
 allow init vendor_file:file execute;
+allow init vendor_file:file execute_no_trans;
