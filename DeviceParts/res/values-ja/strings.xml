@@ -30,8 +30,6 @@
   <string name="graphics_title">グラフィックス</string>
   <string name="srgb_mode_title">sRGBモード</string>
   <string name="hbm_mode_title">高輝度モード</string>
-  <string name="proxi_summary_head">ジェスチャーと指紋センサーを処理するための近接センサーをチェックする</string>
-  <string name="proxi_title_head">近接センサーの確認</string>
   <string name="off_screen_gesture_feedback_summary_head">ジェスチャーの振動フィードバックを有効にする</string>
   <string name="off_screen_gesture_feedback_title_head">振動フィードバック</string>
   <string name="slider_mode_off">オフ</string>

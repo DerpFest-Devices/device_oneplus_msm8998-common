@@ -30,8 +30,6 @@
   <string name="graphics_title">Graphiques</string>
   <string name="srgb_mode_title">mode sRGB</string>
   <string name="hbm_mode_title">Mode haute luminosité</string>
-  <string name="proxi_summary_head">Vérifier le capteur de proximité pour les gestes tactiles et le capteur d\'empreinte</string>
-  <string name="proxi_title_head">Contrôle de proximité</string>
   <string name="off_screen_gesture_feedback_summary_head">Activez les retours haptiques pour les gestes</string>
   <string name="off_screen_gesture_feedback_title_head">Retour haptique</string>
   <string name="slider_mode_off">Désactivé</string>

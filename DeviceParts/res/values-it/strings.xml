@@ -32,8 +32,6 @@
   <string name="srgb_mode_title">modalità sRGB</string>
   <string name="hbm_mode_summary"></string>
   <string name="hbm_mode_title">Modalità alta luminosità</string>
-  <string name="proxi_summary_head">Controlla il sensore di prossimità per eventuali gesture e il sensore di impronte digitali</string>
-  <string name="proxi_title_head">Controllo di prossimità</string>
   <string name="off_screen_gesture_feedback_summary_head">Attiva la vibrazione al tocco per i gesti</string>
   <string name="off_screen_gesture_feedback_title_head">Feedback tattile</string>
   <string name="slider_mode_off">Disattivo</string>

@@ -30,8 +30,6 @@
   <string name="graphics_title">Ecrã</string>
   <string name="srgb_mode_title">Modo sRGB</string>
   <string name="hbm_mode_title">Modo de alta luminosidade</string>
-  <string name="proxi_summary_head">Verificar o sensor de proximidade antes de acordar o dispositivo com gestos ou impressão digital</string>
-  <string name="proxi_title_head">Verificação de proximidade</string>
   <string name="off_screen_gesture_feedback_summary_head">Ativar a vibração para gestos</string>
   <string name="off_screen_gesture_feedback_title_head">Vibração ao tocar</string>
   <string name="slider_mode_off">Desligado</string>

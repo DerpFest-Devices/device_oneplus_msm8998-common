@@ -30,8 +30,6 @@
   <string name="graphics_title">Graafika</string>
   <string name="srgb_mode_title">sRGB-režiim</string>
   <string name="hbm_mode_title">Kõrge heleduse režiim</string>
-  <string name="proxi_summary_head">Kontrolli lähedussensorit, haldamaks žeste ja sõrmejäljelugejat</string>
-  <string name="proxi_title_head">Läheduskontroll</string>
   <string name="off_screen_gesture_feedback_summary_head">Luba žestidele haptiline tagasiside</string>
   <string name="off_screen_gesture_feedback_title_head">Haptine tagasiside</string>
   <string name="slider_mode_off">Väljas</string>

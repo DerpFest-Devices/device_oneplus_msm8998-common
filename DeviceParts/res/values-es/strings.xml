@@ -30,8 +30,6 @@
   <string name="graphics_title">Gráficos</string>
   <string name="srgb_mode_title">modo sRGB</string>
   <string name="hbm_mode_title">Modo de brillo alto</string>
-  <string name="proxi_summary_head">Compruebe el sensor de proximidad para el manejo de gesto y huella digital del sensor</string>
-  <string name="proxi_title_head">Control de proximidad</string>
   <string name="off_screen_gesture_feedback_summary_head">Permiten retroalimentación háptica para gestos</string>
   <string name="off_screen_gesture_feedback_title_head">Retroalimentación háptica</string>
   <string name="slider_mode_off">Apagado</string>

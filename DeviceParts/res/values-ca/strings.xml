@@ -30,8 +30,6 @@
   <string name="graphics_title">Gràfics</string>
   <string name="srgb_mode_title">Mode sRGB</string>
   <string name="hbm_mode_title">Mode de brillantor alta</string>
-  <string name="proxi_summary_head">Comprova el sensor de proximitat per a la gestió dels gests i del sensor d\'empremta digital</string>
-  <string name="proxi_title_head">Comprovació de proximitat</string>
   <string name="off_screen_gesture_feedback_summary_head">Habilita la resposta hàptica per als gests</string>
   <string name="off_screen_gesture_feedback_title_head">Resposta Hàptica</string>
   <string name="slider_mode_off">Desactivat</string>

@@ -30,8 +30,6 @@
   <string name="graphics_title">Grafika</string>
   <string name="srgb_mode_title">sRGB üzemmód</string>
   <string name="hbm_mode_title">Nagy fényerő mód</string>
-  <string name="proxi_summary_head">Ellenőrizze a közelség érzékelőt a gesztus és az ujjlenyomat érzékelő kezeléséhez</string>
-  <string name="proxi_title_head">Közelség ellenőrzés</string>
   <string name="off_screen_gesture_feedback_summary_head">Engedélyezi az érintési visszajelzést a gesztusokhoz</string>
   <string name="off_screen_gesture_feedback_title_head">Érintési visszajelzés</string>
   <string name="slider_mode_off">Ki</string>

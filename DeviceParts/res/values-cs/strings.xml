@@ -30,8 +30,6 @@
   <string name="graphics_title">Grafika</string>
   <string name="srgb_mode_title">Režim sRGB</string>
   <string name="hbm_mode_title">Režim s vysokým jasem</string>
-  <string name="proxi_summary_head">Zkontrolujte senzor přiblížení pro zachycení gesta a senzor otisků prstů</string>
-  <string name="proxi_title_head">Kontrola senzoru přiblížení</string>
   <string name="off_screen_gesture_feedback_summary_head">Povolit hmatovou odezvu pro gesta</string>
   <string name="off_screen_gesture_feedback_title_head">Hmatová odezva</string>
   <string name="slider_mode_off">Vypnuto</string>

@@ -30,8 +30,6 @@
   <string name="graphics_title">Grafikler</string>
   <string name="srgb_mode_title">sRGB modu</string>
   <string name="hbm_mode_title">Yüksek parlaklık modu</string>
-  <string name="proxi_summary_head">Hareketi ve parmak izi sensörünü idâre etmek için yakınlık sensörünü yokla</string>
-  <string name="proxi_title_head">Yakınlık yoklaması</string>
   <string name="off_screen_gesture_feedback_summary_head">Temas geri bildirimini hareketler için fa\'âl hâle getirin</string>
   <string name="off_screen_gesture_feedback_title_head">Temas geri bildirimi</string>
   <string name="slider_mode_off">Kapalı</string>

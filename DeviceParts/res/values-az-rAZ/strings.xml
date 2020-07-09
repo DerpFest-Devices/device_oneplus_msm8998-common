@@ -28,8 +28,6 @@
   <string name="graphics_title">Qrafiklər</string>
   <string name="srgb_mode_title">sRGB modu</string>
   <string name="hbm_mode_title">Yüksək işıq modu</string>
-  <string name="proxi_summary_head">Hərəkət və barmaq izin sensorunu idarə etmək üçün yaxınlıq sensorunu yoxla</string>
-  <string name="proxi_title_head">Yaxınlıq təyinedici</string>
   <string name="slider_mode_off">Qapalı</string>
   <string name="slider_mode_vibrate">Titrəmə</string>
   <string name="slider_mode_silent">Səssiz</string>

@@ -30,8 +30,6 @@
   <string name="graphics_title">Grafisch</string>
   <string name="srgb_mode_title">sRGB-modus</string>
   <string name="hbm_mode_title">Hoge helderheid modus</string>
-  <string name="proxi_summary_head">Controleren van de nabijheids sensor voor het afhandelen van gebaren en vingerafdruk sensor</string>
-  <string name="proxi_title_head">Nabijheidscontrole</string>
   <string name="off_screen_gesture_feedback_summary_head">Haptische feedback voor gebaren inschakelen</string>
   <string name="off_screen_gesture_feedback_title_head">Haptische feedback</string>
   <string name="slider_mode_off">Uit</string>

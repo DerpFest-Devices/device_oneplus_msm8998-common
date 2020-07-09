@@ -17,7 +17,6 @@
 */
 package org.omnirom.device;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ComponentName;
@@ -32,15 +31,11 @@ import android.os.Bundle;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.util.Log;
 import static android.provider.Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED;
@@ -53,7 +48,6 @@ import java.util.List;
 public class GestureSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    public static final String KEY_PROXI_SWITCH = "proxi";
     public static final String KEY_DOUBLE_SWIPE_APP = "double_swipe_gesture_app";
     public static final String KEY_CIRCLE_APP = "circle_gesture_app";
     public static final String KEY_DOWN_ARROW_APP = "down_arrow_gesture_app";
@@ -89,9 +83,6 @@ public class GestureSettings extends PreferenceFragment implements
     public static final String DEVICE_GESTURE_MAPPING_13 = "device_gesture_mapping_13_0";
     public static final String DEVICE_GESTURE_MAPPING_14 = "device_gesture_mapping_14_0";
 
-    private TwoStatePreference mProxiSwitch;
-    private TwoStatePreference mFpSwipeDownSwitch;
-    private TwoStatePreference mOffscreenGestureFeedbackSwitch;
     private AppSelectListPreference mDoubleSwipeApp;
     private AppSelectListPreference mCircleApp;
     private AppSelectListPreference mDownArrowApp;
@@ -107,7 +98,6 @@ public class GestureSettings extends PreferenceFragment implements
     private AppSelectListPreference mFPRightSwipeApp;
     private AppSelectListPreference mFPLeftSwipeApp;
     private AppSelectListPreference mFPLongPressApp;
-    private PreferenceCategory fpGestures;
     private boolean mFpDownSwipe;
     private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("dumpling");
     private List<AppSelectListPreference.PackageItem> mInstalledPackages = new LinkedList<AppSelectListPreference.PackageItem>();
@@ -117,10 +107,6 @@ public class GestureSettings extends PreferenceFragment implements
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.gesture_settings, rootKey);
         mPm = getContext().getPackageManager();
-
-        mProxiSwitch = (TwoStatePreference) findPreference(KEY_PROXI_SWITCH);
-        mProxiSwitch.setChecked(Settings.System.getInt(getContext().getContentResolver(),
-                Settings.System.DEVICE_PROXI_CHECK_ENABLED, 1) != 0);
 
         mDoubleSwipeApp = (AppSelectListPreference) findPreference(KEY_DOUBLE_SWIPE_APP);
         mDoubleSwipeApp.setEnabled(isGestureSupported(KEY_DOUBLE_SWIPE_APP));
@@ -225,16 +211,6 @@ public class GestureSettings extends PreferenceFragment implements
     private boolean areSystemNavigationKeysEnabled() {
         return Settings.Secure.getInt(getContext().getContentResolver(),
                Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED, 0) == 1;
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference == mProxiSwitch) {
-            Settings.System.putInt(getContext().getContentResolver(),
-                    Settings.System.DEVICE_PROXI_CHECK_ENABLED, mProxiSwitch.isChecked() ? 1 : 0);
-            return true;
-        }
-        return super.onPreferenceTreeClick(preference);
     }
 
     @Override
