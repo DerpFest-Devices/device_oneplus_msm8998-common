@@ -157,7 +157,7 @@ public class Startup extends BroadcastReceiver {
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
         restore(getGestureFile(GestureSettings.FP_GESTURE_LONG_PRESS_APP), enabled);
 
-        enabled = Settings.System.getInt(context.getContentResolver(), DCDModeSwitch.SETTINGS_KEY, 0) != 0;
+        enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_DCD_SWITCH, false);
         restore(DCDModeSwitch.getFile(), enabled);
         if (!sIsOnePlus5t) {
             restore("/proc/flicker_free/min_brightness", "66");

@@ -55,8 +55,9 @@ public class DCDModeSwitch implements OnPreferenceChangeListener {
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Boolean enabled = (Boolean) newValue;
-  //      Settings.System.putInt(mContext.getContentResolver(), SETTINGS_KEY, enabled ? 1 : 0);
+        sharedPrefs.edit().putBoolean(SETTINGS_KEY, enabled ? false : true).commit();
         Utils.writeValue(getFile(), enabled ? "1" : "0");
         return true;
     }
