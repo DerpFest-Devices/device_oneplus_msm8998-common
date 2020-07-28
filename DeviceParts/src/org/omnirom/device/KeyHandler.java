@@ -30,7 +30,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.content.res.Resources.Theme;
 import android.database.ContentObserver;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -52,6 +54,7 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.graphics.PorterDuff.Mode;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.telecom.PhoneAccountHandle;
@@ -59,6 +62,7 @@ import android.telecom.TelecomManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.HapticFeedbackConstants;
 import android.view.WindowManagerGlobal;
@@ -68,6 +72,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.widget.Toast;
+
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.aosip.aosipUtils;
@@ -343,11 +350,11 @@ public class KeyHandler implements DeviceKeyHandler {
             switch(event.getScanCode()) {
                 case KEY_SLIDER_TOP:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
-                    doHandleSliderAction(0, 0);
+                    doHandleSliderAction(0, 90);
                     return true;
                 case KEY_SLIDER_CENTER:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
-                    doHandleSliderAction(1, 90);
+                    doHandleSliderAction(1, 135);
                     return true;
                 case KEY_SLIDER_BOTTOM:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
@@ -521,33 +528,50 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private void doHandleSliderAction(int position, int yOffset) {
         int action = getSliderAction(position);
-        if ( action == 0) {
-            mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mTorchState = false;
-            showToast(R.string.toast_ringer, Toast.LENGTH_SHORT, yOffset);
-        } else if (action == 1) {
-            mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
-            mTorchState = false;
-            showToast(R.string.toast_vibrate, Toast.LENGTH_SHORT, yOffset);
-        } else if (action == 2) {
-            mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_SILENT);
-            mTorchState = false;
-            showToast(R.string.toast_silent, Toast.LENGTH_SHORT, yOffset);
-        } else if (action == 3) {
-            mNoMan.setZenMode(ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mTorchState = false;
-            showToast(R.string.toast_dnd, Toast.LENGTH_SHORT, yOffset);
-        } else if (action == 4) {
-            mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            mUseSliderTorch = true;
-            mTorchState = true;
-            showToast(R.string.toast_flash, Toast.LENGTH_SHORT, yOffset);
+        int stringId;
+        Drawable icon;
+        switch (action) {
+            default:
+            case 0:
+                mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
+                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+                mTorchState = false;
+                stringId = R.string.toast_ringer;
+                icon = mResContext.getResources().getDrawable(R.drawable.ic_volume_ringer, mResContext.getTheme());
+                break;
+            case 1:
+                mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
+                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
+                mTorchState = false;
+                stringId = R.string.toast_vibrate;
+                icon = mResContext.getResources().getDrawable(R.drawable.ic_volume_ringer_vibrate, mResContext.getTheme());
+                break;
+            case 2:
+                mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
+                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_SILENT);
+                mTorchState = false;
+                stringId = R.string.toast_silent;
+                icon = mResContext.getResources().getDrawable(R.drawable.ic_volume_ringer_mute, mResContext.getTheme());
+                break;
+            case 3:
+                mNoMan.setZenMode(ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
+                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+                mTorchState = false;
+                stringId = R.string.toast_dnd;
+                icon = mResContext.getResources().getDrawable(R.drawable.ic_qs_dnd_on, mResContext.getTheme());
+                break;
+            case 4:
+                mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
+                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+                mUseSliderTorch = true;
+                mTorchState = true;
+                stringId = R.string.toast_flash;
+                icon = mResContext.getResources().getDrawable(R.drawable.ic_lock_torch, mResContext.getTheme());
+                break;
         }
+
+        icon.setColorFilter(getAccentColor(), Mode.MULTIPLY);
+        showToast(stringId, Toast.LENGTH_SHORT, yOffset, icon);
 
         if (((!mProxyIsNear && mUseProxiCheck) || !mUseProxiCheck) && mUseSliderTorch && action < 4) {
             launchSpecialActions(AppSelectListPreference.TORCH_ENTRY);
@@ -555,6 +579,12 @@ public class KeyHandler implements DeviceKeyHandler {
         } else if (((!mProxyIsNear && mUseProxiCheck) || !mUseProxiCheck) && mUseSliderTorch) {
             launchSpecialActions(AppSelectListPreference.TORCH_ENTRY);
         }
+    }
+
+    private int getAccentColor() {
+        TypedValue tv = new TypedValue();
+        mSysUiContext.getTheme().resolveAttribute(android.R.attr.colorAccent, tv, true);
+        return tv.data;
     }
 
     private Intent createIntent(String value) {
@@ -735,7 +765,7 @@ public class KeyHandler implements DeviceKeyHandler {
         return "com.oneplus.sensor.pocket";
     }
 
-    void showToast(int messageId, int duration, int yOffset) {
+    void showToast(int messageId, int duration, int yOffset, Drawable icon) {
         final String message = mResContext.getResources().getString(messageId);
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -744,6 +774,7 @@ public class KeyHandler implements DeviceKeyHandler {
             if (toast != null) toast.cancel();
             toast = Toast.makeText(mSysUiContext, message, duration);
             toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, yOffset);
+            toast.setIcon(icon);
             toast.show();
             }
         });
