@@ -71,8 +71,6 @@ on post-fs
     chown system system /sys/class/timed_output/vibrator/vtg_max
     chown system system /sys/class/timed_output/vibrator/vtg_min
 
-    write /sys/class/graphics/fb0/idle_time 100
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -366,6 +364,11 @@ on post-fs-data
     #Create FM dir for patchdownloader
     mkdir /data/vendor/fm 0770 system system
     chmod 0770 /data/vendor/fm
+
+    #Create PERFD deamon related dirs
+    mkdir /data/vendor/perfd 0770 root system
+    chmod 2770 /data/vendor/perfd
+    rm /data/vendor/perfd/default_values
 
     #Create IOP  deamon related dirs
     mkdir /data/vendor/iop 0700 root system
