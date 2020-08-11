@@ -32,6 +32,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
 import android.database.ContentObserver;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -91,6 +92,7 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/key_disable";
     private static final String FPC_CONTROL_PATH = "/sys/devices/soc/soc:fpc_fpc1020/proximity_state";
     private static final String GOODIX_CONTROL_PATH = "/sys/devices/soc/soc:goodix_fp/proximity_state";
+    private static final String ACCENT_COLOR_PROP = "persist.sys.theme.accentcolor";
 
     private static final int GESTURE_CIRCLE_SCANCODE = 250;
     private static final int GESTURE_V_SCANCODE = 255;
@@ -582,9 +584,13 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private int getAccentColor() {
-        TypedValue tv = new TypedValue();
-        mSysUiContext.getTheme().resolveAttribute(android.R.attr.colorAccent, tv, true);
-        return tv.data;
+        String colorVal = SystemProperties.get(ACCENT_COLOR_PROP, "-1");
+        if (colorVal == "-1") {
+            TypedValue tv = new TypedValue();
+            mSysUiContext.getTheme().resolveAttribute(android.R.attr.colorAccent, tv, true);
+            return tv.data;
+        }
+        return Color.parseColor("#" + colorVal);
     }
 
     private Intent createIntent(String value) {
