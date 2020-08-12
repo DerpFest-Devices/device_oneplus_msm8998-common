@@ -299,6 +299,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     OnePlusPocketMode
 
+# Perfd (dummy)
+PRODUCT_PACKAGES += \
+    libqti-perfd-client
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power-service.oneplus_msm8998-libperfmgr
