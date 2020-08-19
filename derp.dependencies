@@ -6,9 +6,5 @@
   {
     "repository"  : "vendor_oneplus",
     "target_path" : "vendor/oneplus"
-  },
-  {
-    "repository"  : "vendor_addons_onepluscamera",
-    "target_path" : "vendor/addons/onepluscamera"
   }
 ]
