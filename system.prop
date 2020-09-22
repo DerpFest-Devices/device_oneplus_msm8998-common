@@ -30,6 +30,9 @@ drm.service.enabled=true
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
+# Framebuffer
+ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
 # Graphics
 debug.gralloc.enable_fb_ubwc=1
 debug.sf.enable_hwc_vds=1
