@@ -163,6 +163,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
+# Device Settings
+PRODUCT_PACKAGES += \
+    DeviceSettings
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -254,6 +258,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.devstart.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.devstart.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
+    $(LOCAL_PATH)/rootdir/etc/init.target.devicesettings.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.target.devicesettings.rc \
     $(LOCAL_PATH)/rootdir/etc/init.radio.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.radio.sh \
     $(LOCAL_PATH)/rootdir/etc/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
 
@@ -432,6 +437,10 @@ PRODUCT_SHIPPING_API_LEVEL := 25
 PRODUCT_SOONG_NAMESPACES += \
     device/oneplus/msm8998-common
 
+# Touch
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.oneplus_msm8998
+
 # Tetheroffload
 PRODUCT_PACKAGES += \
     ipacm \
@@ -508,9 +517,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
