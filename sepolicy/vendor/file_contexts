@@ -72,6 +72,9 @@
 # Ril
 /(vendor|system/vendor)/bin/init\.radio\.sh                     u:object_r:init-radio-sh_exec:s0
 
+# Touch
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.oneplus_msm8998    u:object_r:hal_touch_oneplus_msm8998_exec:s0
+
 # Sysfs
 /sys/devices/soc/soc:fingerprint_detect/sensor_version          u:object_r:sysfs_fpc:s0
 /sys/devices/soc/soc:fpc_fpc1020/irq                            u:object_r:sysfs_fpc_irq:s0
@@ -96,9 +99,6 @@
 
 # Thermal
 /data/vendor/thermal(/.*)?                                      u:object_r:thermal_data_file:s0
-
-# Touch
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.oneplus_msm8998    u:object_r:hal_touch_oneplus_msm8998_exec:s0
 
 # Wifi
 /data/vendor/oemnvitems/4678_0                                  u:object_r:oem_nv_data_file:s0

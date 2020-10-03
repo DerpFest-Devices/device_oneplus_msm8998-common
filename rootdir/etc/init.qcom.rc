@@ -26,6 +26,7 @@
 #
 
 import /vendor/etc/init/hw/init.qcom.usb.rc
+import /vendor/etc/init/hw/init.target.devicesettings.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -439,6 +440,10 @@ on boot
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan
     # Wifi firmware reload path
     chown wifi wifi /sys/module/wlan/parameters/fwpath
+
+    # Vibrator permissions
+    chown root system /sys/devices/virtual/timed_output/vibrator/vtg_level
+    chmod 0660 /sys/devices/virtual/timed_output/vibrator/vtg_level
 
     # Proximity state
     chown system system /sys/devices/soc/soc:fpc_fpc1020/proximity_state
