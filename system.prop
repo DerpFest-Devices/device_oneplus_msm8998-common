@@ -13,7 +13,6 @@ ro.qualcomm.cabl=2
 vidc.enc.dcvs.extra-buff-count=2
 
 # Camera
-vendor.camera.hal1.packagelist=com.whatsapp
 persist.camera.mobicat=2
 persist.camera.stats.debugexif=3080192
 persist.ts.rtmakeup=false
