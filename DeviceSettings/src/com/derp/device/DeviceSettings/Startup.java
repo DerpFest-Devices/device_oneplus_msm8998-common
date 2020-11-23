@@ -58,6 +58,9 @@ public class Startup extends BroadcastReceiver {
         }
         VibratorStrengthPreference.restore(context);
 
+        enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_BUTTON_SWAP, false);
+        restore(ButtonSwap.getFile(), enabled);
+
         if (Build.DEVICE.equals("OnePlus5")) {
             restore("/proc/flicker_free/min_brightness", "66");
         } else if (Build.DEVICE.equals("OnePlus5T")) {
