@@ -60,13 +60,14 @@ public class DeviceSettings extends PreferenceFragment
     public static final String KEY_NIGHT_SWITCH = "night";
     public static final String KEY_ADAPTIVE_SWITCH = "adaptive";
     public static final String KEY_ONEPLUS_SWITCH = "oneplus";
-
+    public static final String KEY_BUTTON_SWAP = "button_swap";
     public static final String KEY_VIBSTRENGTH = "vib_strength";
     public static final String KEY_FPS_INFO = "fps_info";
 
     private static SwitchPreference mFpsInfo;
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mDCModeSwitch;
+    private static TwoStatePreference mButtonSwap;
     private ListPreference mTopKeyPref;
     private ListPreference mMiddleKeyPref;
     private ListPreference mBottomKeyPref;
@@ -114,6 +115,11 @@ public class DeviceSettings extends PreferenceFragment
         mFpsInfo = (SwitchPreference) findPreference(KEY_FPS_INFO);
         mFpsInfo.setChecked(prefs.getBoolean(KEY_FPS_INFO, false));
         mFpsInfo.setOnPreferenceChangeListener(this);
+
+        mButtonSwap = (TwoStatePreference) findPreference(KEY_BUTTON_SWAP);
+        mButtonSwap.setEnabled(ButtonSwap.isSupported());
+        mButtonSwap.setChecked(ButtonSwap.isCurrentlyEnabled(this.getContext()));
+        mButtonSwap.setOnPreferenceChangeListener(new ButtonSwap());
     }
 
     @Override
