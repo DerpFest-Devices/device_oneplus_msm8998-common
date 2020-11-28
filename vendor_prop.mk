@@ -220,11 +220,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.nfc_nci=nqx.default
 
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    sys.games.gt.prof=1
-
 # QSEE
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.qsee=yes
