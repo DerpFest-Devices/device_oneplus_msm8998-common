@@ -452,6 +452,9 @@
         <item>"/system/bin/surfaceflinger"</item>
     </string-array>
 
+    <!-- True if assistant app should be pinned via Pinner Service -->
+    <bool name="config_pinnerAssistantApp">true</bool>
+
     <!-- True if home app should be pinned via Pinner Service -->
     <bool name="config_pinnerHomeApp">true</bool>
 
