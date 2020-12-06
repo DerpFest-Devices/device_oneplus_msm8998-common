@@ -983,9 +983,9 @@ vendor/lib64/ls_client.so
 vendor/lib64/vendor.nxp.eventprocessor@1.0.so
 vendor/lib64/vendor.qti.esepowermanager@1.0.so
 
-# Perf
-vendor/lib/libqti-perfd-client.so
-vendor/lib64/libqti-perfd-client.so
+# Perf - from taimen
+vendor/lib/libqti-perfd-client.so|c1c7482b58fbe012f934b54bea78ff52068ea530
+vendor/lib64/libqti-perfd-client.so|d16c17427d6383368d035c9bf028630837b3b969
 
 # Peripheral manager
 vendor/bin/pm-proxy
