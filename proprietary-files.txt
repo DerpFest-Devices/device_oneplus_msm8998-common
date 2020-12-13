@@ -65,6 +65,10 @@ vendor/bin/hw/vendor.oneplus.hardware.ifaa@2.0-service
 vendor/etc/init/vendor.oneplus.hardware.ifaa@2.0-service.rc
 vendor/lib64/vendor.oneplus.hardware.ifaa@2.0.so
 
+# AptX - From crosshatch-user 10 QQ3A.200805.001 6578210 release-keys
+product/lib64/libaptX_encoder.so|df1c89d7af1bb35808d5fe3496b04ba066c10cbc
+product/lib64/libaptXHD_encoder.so|e13fa70c97caaa24d061678bdee608eb8850a69e
+
 # Audio
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
