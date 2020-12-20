@@ -503,8 +503,8 @@ on property:sys.boot_completed=1
     write /dev/stune/schedtune.prefer_idle 0
     write /dev/stune/schedtune.boost 0
 
-    # Set BFQ I/O scheduler
-    setprop sys.io.scheduler "bfq"
+    # Set CFQ I/O scheduler
+    setprop sys.io.scheduler "cfq"
 
     # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
