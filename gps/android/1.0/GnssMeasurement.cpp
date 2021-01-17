@@ -46,7 +46,7 @@ GnssMeasurement::GnssMeasurement() {
 
 GnssMeasurement::~GnssMeasurement() {
     if (mApi) {
-        mApi->destroy();
+        delete mApi;
         mApi = nullptr;
     }
 }

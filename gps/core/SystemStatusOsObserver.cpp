@@ -452,73 +452,61 @@ void SystemStatusOsObserver::turnOff(DataItemId dit)
 }
 
 #ifdef USE_GLIB
-bool SystemStatusOsObserver::connectBackhaul(const string& clientName)
+bool SystemStatusOsObserver::connectBackhaul()
 {
     bool result = false;
 
     if (mContext.mFrameworkActionReqObj != NULL) {
         struct HandleConnectBackhaul : public LocMsg {
-            HandleConnectBackhaul(IFrameworkActionReq* fwkActReq, const string& clientName) :
-                    mClientName(clientName), mFwkActionReqObj(fwkActReq) {}
+            HandleConnectBackhaul(IFrameworkActionReq* fwkActReq) :
+                    mFwkActionReqObj(fwkActReq) {}
             virtual ~HandleConnectBackhaul() {}
             void proc() const {
                 LOC_LOGi("HandleConnectBackhaul::enter");
-                mFwkActionReqObj->connectBackhaul(mClientName);
+                mFwkActionReqObj->connectBackhaul();
                 LOC_LOGi("HandleConnectBackhaul::exit");
             }
             IFrameworkActionReq* mFwkActionReqObj;
-            string mClientName;
         };
         mContext.mMsgTask->sendMsg(
-                new (nothrow) HandleConnectBackhaul(mContext.mFrameworkActionReqObj, clientName));
+                new (nothrow) HandleConnectBackhaul(mContext.mFrameworkActionReqObj));
         result = true;
     }
     else {
-        LOC_LOGe("Framework action request object is NULL.Caching connect request: %s",
-                clientName.c_str());
-        ClientBackhaulReqCache::const_iterator iter = mBackHaulConnReqCache.find(clientName);
-        if (iter == mBackHaulConnReqCache.end()) {
-            // not found in set. first time receiving from request from client
-            LOC_LOGe("Adding client to BackHaulConnReqCache list");
-            mBackHaulConnReqCache.insert(clientName);
-        }
+        ++mBackHaulConnectReqCount;
+        LOC_LOGE("Framework action request object is NULL.Caching connect request: %d",
+                        mBackHaulConnectReqCount);
         result = false;
     }
     return result;
 
 }
 
-bool SystemStatusOsObserver::disconnectBackhaul(const string& clientName)
+bool SystemStatusOsObserver::disconnectBackhaul()
 {
     bool result = false;
 
     if (mContext.mFrameworkActionReqObj != NULL) {
         struct HandleDisconnectBackhaul : public LocMsg {
-            HandleDisconnectBackhaul(IFrameworkActionReq* fwkActReq, const string& clientName) :
-                    mClientName(clientName), mFwkActionReqObj(fwkActReq) {}
+            HandleDisconnectBackhaul(IFrameworkActionReq* fwkActReq) :
+                    mFwkActionReqObj(fwkActReq) {}
             virtual ~HandleDisconnectBackhaul() {}
             void proc() const {
                 LOC_LOGi("HandleDisconnectBackhaul::enter");
-                mFwkActionReqObj->disconnectBackhaul(mClientName);
+                mFwkActionReqObj->disconnectBackhaul();
                 LOC_LOGi("HandleDisconnectBackhaul::exit");
             }
             IFrameworkActionReq* mFwkActionReqObj;
-            string mClientName;
         };
         mContext.mMsgTask->sendMsg(
-                new (nothrow) HandleDisconnectBackhaul(mContext.mFrameworkActionReqObj,
-                        clientName));
+                new (nothrow) HandleDisconnectBackhaul(mContext.mFrameworkActionReqObj));
     }
     else {
-        LOC_LOGe("Framework action request object is NULL.Caching disconnect request: %s",
-                clientName.c_str());
-        // Check if client has requested for backhaul connection.
-        ClientBackhaulReqCache::const_iterator iter = mBackHaulConnReqCache.find(clientName);
-        if (iter != mBackHaulConnReqCache.end()) {
-            // client found, remove from set.
-            LOC_LOGd("Removing client from BackHaulConnReqCache list");
-            mBackHaulConnReqCache.erase(iter);
+        if (mBackHaulConnectReqCount > 0) {
+            --mBackHaulConnectReqCount;
         }
+        LOC_LOGE("Framework action request object is NULL.Caching disconnect request: %d",
+                        mBackHaulConnectReqCount);
         result = false;
     }
     return result;

@@ -106,8 +106,6 @@ typedef uint16_t LocGpsLocationFlags;
 #define LOC_GPS_LOCATION_HAS_SPEED_ACCURACY   0x0100
 /** LocGpsLocation has valid bearing accuracy */
 #define LOC_GPS_LOCATION_HAS_BEARING_ACCURACY 0x0200
-/** LocGpsLocation has valid Real Time and Real Time Uncertainty */
-#define LOC_GPS_LOCATION_HAS_ELAPSED_REAL_TIME 0x0400
 
 /** Spoof mask in LocGpsLocation */
 typedef uint32_t LocGpsSpoofMask;
@@ -572,11 +570,7 @@ typedef struct {
     /** Represents the expected vertical uncertainity in meters*/
     float           vertUncertainity;
     /** Timestamp for the location fix. */
-    LocGpsUtcTime   timestamp;
-    /** Elapsed RealTime in nanosends */
-    uint64_t        elapsedRealTime;
-    /** Elapsed Real Time Uncertainty in nanosends */
-    uint64_t        elapsedRealTimeUnc;
+    LocGpsUtcTime      timestamp;
 } LocGpsLocation;
 
 /** Represents the status. */

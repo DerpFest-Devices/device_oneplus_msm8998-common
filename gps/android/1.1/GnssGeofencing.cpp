@@ -45,7 +45,7 @@ GnssGeofencing::GnssGeofencing() : mApi(nullptr) {
 
 GnssGeofencing::~GnssGeofencing() {
     if (mApi != nullptr) {
-        mApi->destroy();
+        delete mApi;
         mApi = nullptr;
     }
 }

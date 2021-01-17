@@ -66,21 +66,16 @@ typedef struct {
 
 typedef struct {
     bool             isValid;
-    GnssSvTypeConfig constellationEnablementConfig;
-    GnssSvIdConfig   blacklistSvConfig;
-    GnssSvTypeConfig secondaryBandConfig;
-} SvConfigInfo;
+    bool             resetToDeFault;
+    GnssSvTypeConfig svTypeConfig;
+    GnssSvIdConfig   svIdConfig;
+} SVConfigInfo;
 
 typedef struct {
     bool isValid;
     bool enable;
     bool enableForE911;
 } RobustLocationConfigInfo;
-
-typedef struct {
-    bool isValid;
-    ::DeadReckoningEngineConfig dreConfig;
-} DeadReckoningEngineConfigInfo;
 
 class IpcListener;
 
@@ -96,31 +91,21 @@ public:
         return (mIpcSender != nullptr) && LocIpc::send(*mIpcSender, data, length);
     }
 
-    // reset to defaut will apply to enable/disable SV constellation and
-    // blacklist/unblacklist SVs
-    virtual uint32_t configConstellations(
-            const GnssSvTypeConfig& constellationEnablementConfig,
-            const GnssSvIdConfig&   blacklistSvConfig) override;
-    virtual uint32_t configConstellationSecondaryBand(
-                                          const GnssSvTypeConfig& secondaryBandConfig) override;
+    // config API
+    virtual uint32_t resetConstellationConfig() override;
+    virtual uint32_t configConstellations(const GnssSvTypeConfig& svTypeConfig,
+                                          const GnssSvIdConfig&   svIdConfig) override;
     virtual uint32_t configConstrainedTimeUncertainty(
             bool enable, float tuncThreshold, uint32_t energyBudget) override;
     virtual uint32_t configPositionAssistedClockEstimator(bool enable) override;
     virtual uint32_t configLeverArm(const LeverArmConfigInfo& configInfo) override;
     virtual uint32_t configRobustLocation(bool enable, bool enableForE911) override;
-    virtual uint32_t configDeadReckoningEngineParams(
-            const ::DeadReckoningEngineConfig& dreConfig) override;
-    virtual uint32_t* gnssUpdateConfig(const GnssConfig& config) override;
+
+    // rest of ILocationController API that are not used in integration API
+    virtual uint32_t* gnssUpdateConfig(GnssConfig config) override;
     virtual uint32_t gnssDeleteAidingData(GnssAidingData& data) override;
-    virtual uint32_t configMinGpsWeek(uint16_t minGpsWeek) override;
 
     uint32_t getRobustLocationConfig();
-    uint32_t getMinGpsWeek();
-
-    uint32_t configMinSvElevation(uint8_t minSvElevation);
-    uint32_t getMinSvElevation();
-
-    uint32_t getConstellationSecondaryBandConfig();
 
 private:
     ~LocationIntegrationApiImpl();
@@ -137,10 +122,6 @@ private:
     void processConfigRespCb(const LocAPIGenericRespMsg* pRespMsg);
     void processGetRobustLocationConfigRespCb(
             const LocConfigGetRobustLocationConfigRespMsg* pRespMsg);
-    void processGetMinGpsWeekRespCb(const LocConfigGetMinGpsWeekRespMsg* pRespMsg);
-    void processGetMinSvElevationRespCb(const LocConfigGetMinSvElevationRespMsg* pRespMsg);
-    void processGetConstellationSecondaryBandConfigRespCb(
-            const LocConfigGetConstellationSecondaryBandConfigRespMsg* pRespMsg);
 
     // internal session parameter
     static mutex             mMutex;
@@ -156,10 +137,9 @@ private:
     // and restarts
     TuncConfigInfo           mTuncConfigInfo;
     PaceConfigInfo           mPaceConfigInfo;
-    SvConfigInfo             mSvConfigInfo;
+    SVConfigInfo             mSVConfigInfo;
     LeverArmConfigInfo       mLeverArmConfigInfo;
     RobustLocationConfigInfo mRobustLocationConfigInfo;
-    DeadReckoningEngineConfigInfo mDreConfigInfo;
 
     LocConfigReqCntMap       mConfigReqCntMap;
     LocIntegrationCbs        mIntegrationCbs;
@@ -167,7 +147,7 @@ private:
     LocIpc                   mIpc;
     shared_ptr<LocIpcSender> mIpcSender;
 
-    MsgTask                  mMsgTask;
+    MsgTask*                 mMsgTask;
 };
 
 } // namespace location_client

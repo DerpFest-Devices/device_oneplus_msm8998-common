@@ -46,6 +46,7 @@ class BatchingAPIClient : public LocationAPIClientBase
 {
 public:
     BatchingAPIClient(const sp<V1_0::IGnssBatchingCallback>& callback);
+    ~BatchingAPIClient();
     int getBatchSize();
     int startSession(const V1_0::IGnssBatching::Options& options);
     int updateSessionOptions(const V1_0::IGnssBatching::Options& options);
@@ -60,8 +61,6 @@ public:
     void onBatchingCb(size_t count, Location* location, BatchingOptions batchOptions) final;
 
 private:
-    ~BatchingAPIClient();
-
     sp<V1_0::IGnssBatchingCallback> mGnssBatchingCbIface;
     uint32_t mDefaultId;
     LocationCapabilitiesMask mLocationCapabilitiesMask;
