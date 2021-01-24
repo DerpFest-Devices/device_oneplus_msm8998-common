@@ -88,4 +88,8 @@
     <!-- Defines the custom pickup sensor used by various OEMs like OnePlus-->
     <string name="config_dozePickupSensorType">com.oneplus.sensor.pickup</string>
 
+    <!-- Max visible notification icons -->
+    <integer name="config_maxVisibleNotificationIcons">6</integer>
+    <integer name="config_maxVisibleNotificationIconsOnLock">7</integer>
+
 </resources>
