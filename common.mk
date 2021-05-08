@@ -22,6 +22,8 @@
 # definition file).
 #
 
+# Get non-open-source specific aspects
+$(call inherit-product, vendor/oneplus/google/google.mk)
 $(call inherit-product, vendor/oneplus/msm8998-common/msm8998-common-vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o.mk)
 
@@ -94,7 +96,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl:32 \
     android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.audio.service \
-    android.hardware.soundtrigger@2.2-impl:32 \
     audio.a2dp.default \
     audio.primary.msm8998 \
     audio.r_submix.default \
