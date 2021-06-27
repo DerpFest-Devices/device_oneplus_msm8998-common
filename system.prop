@@ -59,6 +59,7 @@ ro.telephony.call_ring.multiple=false
 ro.telephony.default_network=22,20
 ro.telephony.iwlan_operation_mode=legacy
 telephony.lteOnCdmaDevice=1
+persist.vendor.radio.aosp_usr_pref_sel=true
 
 # SurfaceFlinger
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
