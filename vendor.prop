@@ -80,6 +80,9 @@ persist.vendor.qcom.bluetooth.aac_frm_ctl.enabled=true
 persist.vendor.qcom.bluetooth.soc=cherokee
 ro.vendor.bluetooth.wipower=false
 
+# Camera
+persist.vendor.camera.privapp.list=com.android.camera,com.oneplus.camera,org.codeaurora.snapcam
+
 # CNE
 persist.vendor.cne.feature=1
 
