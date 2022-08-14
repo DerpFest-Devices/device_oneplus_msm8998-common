@@ -1,0 +1,12 @@
+[
+  {
+    "remote": "derp-devices",
+    "repository": "hardware_oneplus",
+    "target_path": "hardware/oneplus"
+  },
+  {
+    "remote": "derp-devices",
+    "repository": "kernel_oneplus_msm8998",
+    "target_path": "kernel/oneplus/msm8998"
+  }
+]
