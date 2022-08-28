@@ -68,4 +68,7 @@
         <item>org.lineageos.aperture.dev</item>
     </string-array>
 
+    <!-- Whether to handle audio direction changes between major call states -->
+    <bool name="config_handleAudioDirectionChangesBetweenCallStateChanges">false</bool>
+
 </resources>
