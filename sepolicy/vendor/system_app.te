@@ -1,0 +1,2 @@
+allow system_app proc_flicker_free:dir { search };
+allow system_app proc_flicker_free:file { rw_file_perms };
