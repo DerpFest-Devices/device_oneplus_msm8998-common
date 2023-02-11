@@ -13,6 +13,9 @@
 /dev/dash                                                       u:object_r:dash_device:s0
 /dev/param                                                      u:object_r:param_device:s0
 
+# Display Mode
+/sys/devices/virtual/graphics/fb0/hbm                           u:object_r:sysfs_dm:s0
+
 # Fingerprint
 /data/system/users/0/fpdata(/.*)?                               u:object_r:fingerprintd_data_file:s0
 

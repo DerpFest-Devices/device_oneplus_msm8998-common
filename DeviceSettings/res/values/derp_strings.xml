@@ -19,7 +19,10 @@
     <string name="device_title">Advanced settings</string>
     <string name="device_summary">Adjust OnePlus specific display settings</string>
     <string name="display_title">Display</string>
+    <string name="hbm_mode_summary"></string>
+    <string name="hbm_mode_title">High brightness mode</string>
     <string name="dc_mode_summary">Prevent extensive flickering and reduce eye strain in low light conditions. It might degrade color accuracy and affect the way some items are displayed.</string>
     <string name="dc_mode_title">Anti-flicker mode</string>
+    <string name="tile_hbm_mode">Outdoor mode</string>
     <string name="tile_dc_mode">Anti-flicker</string>
 </resources>
