@@ -19,6 +19,5 @@
     <string name="hbm_mode_title">Hoher Helligkeitsmodus</string>
     <string name="dc_mode_summary">Verhindert starkes Flimmern und reduziert die Belastung der Augen bei schlechten Lichtverhältnissen. Kann die Farbgenauigkeit verschlechtern und die Art und Weise, wie einige Elemente angezeigt werden, beeinträchtigen.</string>
     <string name="dc_mode_title">Anti-Flimmern (DC-Dimming)</string>
-    <string name="tile_hbm_mode">Hoher Helligkeitsmodus</string>
     <string name="tile_dc_mode">Anti-Flimmern (DC-Dimming)</string>
 </resources>
