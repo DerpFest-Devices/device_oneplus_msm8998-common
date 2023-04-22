@@ -540,6 +540,9 @@ vendor/firmware/ipa_fws.b04
 vendor/firmware/ipa_fws.elf
 vendor/firmware/ipa_fws.mdt
 
+# IRQ balance
+vendor/bin/msm_irqbalance
+
 # Keymaster
 vendor/lib64/hw/keystore.msm8998.so
 vendor/lib64/libkeymasterdeviceutils.so
@@ -595,10 +598,6 @@ vendor/lib64/libgpustats.so
 
 # NFC
 vendor/lib/libpn553_fw.so:vendor/lib64/libpn553_fw.so
-
-# Perf
-vendor/bin/energy-awareness
-vendor/bin/msm_irqbalance
 
 # Peripheral manager
 vendor/bin/pm-proxy
