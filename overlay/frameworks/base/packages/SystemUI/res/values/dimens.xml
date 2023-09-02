@@ -16,6 +16,9 @@
 */
 -->
 <resources>
+    <!-- Location on the screen of the center of the fingerprint sensor -->
+    <dimen name="physical_fingerprint_sensor_center_screen_location_x">1080px</dimen>
+
     <!-- the padding on the start of the statusbar -->
     <dimen name="status_bar_padding_start">15dp</dimen>
 
