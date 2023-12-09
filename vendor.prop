@@ -95,6 +95,7 @@ vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
 
 # Graphics
 ro.hardware.egl=adreno
+ro.surface_flinger.enable_frame_rate_override=false
 vendor.display.disable_partial_split=1
 vendor.display.disable_rotator_downscale=1
 vendor.display.disable_skip_validate=1
