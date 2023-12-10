@@ -41,7 +41,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_ADDITIONAL_FLAGS := HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8998
-TARGET_KERNEL_CONFIG := derp_defconfig
+TARGET_KERNEL_CONFIG := lineage_oneplus5_defconfig
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
