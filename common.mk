@@ -188,7 +188,8 @@ endif
 
 # GPS / Location
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@2.0.vendor
+    android.hardware.gnss@2.0.vendor \
+    libion.vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/apdr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/apdr.conf \
@@ -344,7 +345,10 @@ PRODUCT_COPY_FILES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    libjson
+    libcurl.vendor:64 \
+    libjson \
+    libjsoncpp.vendor:64 \
+    libsqlite.vendor:64
 
 # Recovery
 PRODUCT_PACKAGES += \
