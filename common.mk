@@ -179,7 +179,8 @@ TARGET_USES_PICO_GAPPS := true
 # Gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-service \
+    libion.vendor
 
 # GMS
 ifeq ($(WITH_GMS),true)
@@ -208,6 +209,7 @@ PRODUCT_PACKAGES += \
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.allocator@1.0.vendor \
+    libhidlmemory.vendor:64 \
     libhidltransport \
     libhidltransport.vendor \
     libhwbinder \
@@ -361,6 +363,8 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.deprecated@1.0.vendor \
     android.hardware.secure_element@1.2.vendor \
     librmnetctl \
+    libsqlite.vendor \
+    libsysutils.vendor \
     libxml2 \
     libprotobuf-cpp-lite-3.9.1-vendorcompat
 
