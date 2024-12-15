@@ -17,6 +17,7 @@ import android.os.UserHandle;
 import android.util.Log;
 
 import android.provider.Settings;
+import org.derpfest.providers.DerpFestSettings;
 
 public class PocketModeService extends Service {
 
@@ -76,7 +77,7 @@ public class PocketModeService extends Service {
 
         public void register() {
             getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.PROXIMITY_ON_WAKE), false, this);
+                    DerpFestSettings.System.PROXIMITY_ON_WAKE), false, this);
 
             update();
         }
@@ -94,7 +95,7 @@ public class PocketModeService extends Service {
             boolean defaultProximity = getResources().getBoolean(
                     com.android.internal.R.bool.config_proximityCheckOnWakeEnabledByDefault);
             boolean proximityWakeCheckEnabled = Settings.System.getIntForUser(
-                    getContentResolver(), Settings.System.PROXIMITY_ON_WAKE, defaultProximity
+                    getContentResolver(), DerpFestSettings.System.PROXIMITY_ON_WAKE, defaultProximity
                     ? 1 : 0, UserHandle.USER_CURRENT) == 1;
 
             if (proximityWakeCheckEnabled) {
