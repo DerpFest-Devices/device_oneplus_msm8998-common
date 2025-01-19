@@ -17,7 +17,7 @@ LOCAL_OPTIONAL_USES_LIBRARIES := \
     androidx.window.sidecar
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
-    VendorSupport-preference
+    framework-derpfest.static
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
